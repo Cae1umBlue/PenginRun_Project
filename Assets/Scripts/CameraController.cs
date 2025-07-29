@@ -7,7 +7,7 @@ public class CameraController : MonoBehaviour
     public float ZOffset = -10f;           // 카메라 Z축 거리
     public float FollowSpeed = 5f;         // 따라가기 속도
 
-    private Transform target;              // 따라갈 대상
+    private Transform Target;              // 따라갈 대상
 
     private void Start()
     {
@@ -15,7 +15,7 @@ public class CameraController : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
-            target = player.transform;
+            Target = player.transform;
         }
         else
         {
@@ -26,11 +26,10 @@ public class CameraController : MonoBehaviour
     // 카메라가 모든 오브젝트의 업데이트 후에 위치를 조정
     private void LateUpdate()
     {
-        if (target != null)
+        if (Target != null)
         {
-            Vector3 targetPos = new Vector3(target.position.x, FixedY, ZOffset);
+            Vector3 targetPos = new Vector3(Target.position.x, FixedY, ZOffset);
             transform.position = Vector3.Lerp(transform.position, targetPos, FollowSpeed * Time.deltaTime);
         }
     }
-
 }
