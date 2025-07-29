@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Instance { get; private set; } // 싱글톤 인스턴스
 
     [Header("이동 관련")]
-    public float MoveSpeed = 5f;
+    public float moveSpeed = 5f;
 
     [Header("점프 관련")]
     public float JumpForce = 0f;
@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
     // 플레이어를 오른쪽으로 이동
     private void MoveForward()
     {
-        Rb.velocity = new Vector2(MoveSpeed, Rb.velocity.y);
+        Rb.velocity = new Vector2(moveSpeed, Rb.velocity.y);
     }
 
     // 플레이어가 점프하도록 처리
