@@ -2,17 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* 제작 목록
+BGM
+배경음악 재생 : BGM 오브젝트
+SFX
+캐릭터
+    1. 점프
+    2. 슬라이딩
+    3. 장애물 피격
+    4. 추락
+UISound
+클릭(선택)
+점수창
+*/
+
+
 public class SoundManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static SoundManager Instance;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        if (Instance == null)
+        {
+            Instance = this;
+        }
     }
 }
+
