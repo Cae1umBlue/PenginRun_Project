@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     private Animator Animator;
 
     // 플레이어 임시 체력 (충돌 테스트)
-    public int Health = 3;
+    public int currentHP = 3;
 
     // 싱글톤 인스턴스 생성
     private void Awake()
@@ -132,13 +132,13 @@ public class PlayerController : MonoBehaviour
         }
 
         // 피격 처리
-        Health -= 1;
+        currentHP -= 1;
         HitTime = Time.time; // 피격 시간 기록
 
         // 체력이 -1 이하로 내려가는 경우 방지
-        if (Health < -1)
+        if (currentHP < -1)
         {
-            Health = -1;
+            currentHP = -1;
         }
 
         // 피격 애니메이션 트리거
@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // 체력이 0 이하라면 게임오버 처리
-        if (Health <= 0)
+        if (currentHP <= 0)
         {
             // 게임오버 애니메이션 및 게임오버 UI 활성화?
         }
