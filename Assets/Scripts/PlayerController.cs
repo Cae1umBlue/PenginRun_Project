@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     private Animator Animator;
 
     // 플레이어 임시 체력 (충돌 테스트)
-    public int currentHP = 3;
+    public int currentHP = 100;
 
     // 싱글톤 인스턴스 생성
     private void Awake()
@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
         // 체력이 -1 이하로 내려가는 경우 방지
         if (currentHP < -1)
         {
-            currentHP = -1;
+            currentHP = -20;
         }
 
         // 피격 애니메이션 트리거
@@ -152,5 +152,11 @@ public class PlayerController : MonoBehaviour
         {
             // 게임오버 애니메이션 및 게임오버 UI 활성화?
         }
+    }
+
+    // 체력 회복용 메서드. Heal 아이템 획득 시 호출됨.
+    public void Heal(int amount)
+    {
+        currentHP += amount;
     }
 }
