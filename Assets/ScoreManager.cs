@@ -7,8 +7,8 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance { get; private set; }  // 싱글톤 인스턴스
 
-    public int CurrentScore { get; private set; }              // 현재 게임의 점수
-    public int HighScore { get; private set; }                 // 저장된 최고 점수
+    public int CurrentScore { get; private set; }              // 현재 점수
+    public int HighScore { get; private set; }              // 저장된 최고 점수
 
     private const string HighScoreKey = "HighScore";           // PlayerPrefs 키
 
@@ -18,18 +18,20 @@ public class ScoreManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);  // 씬 전환 시에도 유지
+            DontDestroyOnLoad(gameObject);  // 씬 전환 시에도 파괴되지 않음
         }
         else
         {
             Destroy(gameObject);            // 중복 인스턴스 제거
+            return;
         }
     }
 
     private void Start()
     {
-        // 게임 시작 시 최고 점수 로드 및 점수 초기화
+        // 게임 시작 시 최고 점수 로드
         LoadHighScore();
+        // 점수 초기화 및 UI 갱신
         ResetScore();
     }
 
@@ -41,7 +43,7 @@ public class ScoreManager : MonoBehaviour
         UIManager.Instance.UpdateScoreUI(CurrentScore);
     }
 
-    // 게임 재시작 또는 초기화 시 점수 리셋
+    // 점수를 0으로 리셋할 때 호출 (게임 시작·재시작)
     public void ResetScore()
     {
         CurrentScore = 0;
@@ -49,7 +51,7 @@ public class ScoreManager : MonoBehaviour
         UIManager.Instance.UpdateScoreUI(CurrentScore);
     }
 
-    // 저장된 최고 점수를 불러옴 (없으면 0)
+    // 저장된 최고 점수를 불러올 때 호출 (없으면 0)
     public void LoadHighScore()
     {
         HighScore = PlayerPrefs.GetInt(HighScoreKey, 0);
@@ -57,7 +59,7 @@ public class ScoreManager : MonoBehaviour
         UIManager.Instance.UpdateHighScoreUI(HighScore);
     }
 
-    // 현재 점수가 최고 점수보다 높으면 저장
+    // 현재 점수를 최고 점수와 비교해 저장할 때 호출
     public void SaveHighScore()
     {
         if (CurrentScore > HighScore)
@@ -65,7 +67,6 @@ public class ScoreManager : MonoBehaviour
             HighScore = CurrentScore;
             PlayerPrefs.SetInt(HighScoreKey, HighScore);
             PlayerPrefs.Save();
-
             // 저장된 최고점 UI 갱신
             UIManager.Instance.UpdateHighScoreUI(HighScore);
         }
