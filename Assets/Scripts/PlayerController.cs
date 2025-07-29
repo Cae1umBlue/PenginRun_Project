@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     public float GroundCheckRadius = 0.2f; // 해당 범위에 GroundLayer가 있을 경우만 점프, 슬라이드 가능
     public LayerMask GroundLayer; // 바닥 레이어 
 
+    private float hitTime = -999f;              // 마지막으로 피격당한 시간
+    public float invincibleDuration = 1.0f;     // 무적 지속 시간
+
     private Rigidbody2D Rb;
     private Animator Animator;
 
@@ -92,9 +95,29 @@ public class PlayerController : MonoBehaviour
     /// Obstacle 장애물과 플레이어가 부딫칠 경우 1의 대미지를 받음
     public void TakeDamage()
     {
-        Health -= 1;
+        // 무적 상태라면 대미지 무시
+        if (Time.time < hitTime + invincibleDuration)
+        {
+            return;
+        }
 
-        // 체력이 0 이하가 되면 게임오버
+        // 피격 처리
+        Health -= 1;
+        hitTime = Time.time; // 피격 시간 기록
+
+        // 체력이 -1 이하로 내려가는 경우 방지
+        if (Health < -1)
+        {
+            Health = -1;
+        }
+
+        // 피격 애니메이션 트리거
+        if (Animator != null)
+        {
+            Animator.SetTrigger("HitTime");
+        }
+
+        // 체력이 0 이하라면 게임오버 처리
         if (Health <= 0)
         {
             // 게임오버 애니메이션 및 게임오버 UI 활성화?
