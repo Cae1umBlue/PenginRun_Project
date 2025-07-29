@@ -17,10 +17,6 @@ public class CameraController : MonoBehaviour
         {
             Target = player.transform;
         }
-        else
-        {
-            Debug.LogWarning("Player 태그가 지정된 오브젝트를 찾을 수 없습니다.");
-        }
     }
 
     // 카메라가 모든 오브젝트의 업데이트 후에 위치를 조정
