@@ -1,3 +1,9 @@
+// 태그를 좀 사용하여 충돌되도록 작성을 해뒀습니다.
+// 기본적으로 Player 캐릭터는 Player태그를 가지게 하면됩니다.
+// 바닥은 Block 태그를 가지게 하였습니다.
+// 장애물은 Obstacle 스크립트를 가진 오브젝트로 설정하였습니다.
+
+
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
