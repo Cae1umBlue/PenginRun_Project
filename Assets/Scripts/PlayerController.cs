@@ -14,11 +14,14 @@ public class PlayerController : MonoBehaviour
 
     [Header("바닥 체크 관련")] // groundLayer에서만 점프 가능
     public Transform GroundCheck; // 추후 투명도 설정으로 긴 바닥 체크를 구현예정
-    public float GroundCheckRadius = 0.2f; // 해당 범위에 그라운드 레이어가 있을경우만 점프 가능
+    public float GroundCheckRadius = 0.2f; // 해당 범위에 그라운드 레이어가 있을경우만 점프, 슬라이드 가능
     public LayerMask GroundLayer; // 바닥 레이어 
 
     private Rigidbody2D Rb;
     private Animator Animator;
+
+    // 플레이어 임시 체력 (충돌 테스트)
+    public int Health = 3;
 
     // 컴포넌트(Rigidbody2D, Animator)를 초기화
     private void Start()
@@ -51,9 +54,13 @@ public class PlayerController : MonoBehaviour
     // 플레이어가 점프하도록 처리
     private void Jump()
     {
-        Rb.velocity = new Vector2(Rb.velocity.x, JumpForce);
-        Animator.SetTrigger("Jump");
+        if (Rb.velocity.y <= 0.1f) // 점프 중 상승 중에는 막기
+        {
+            Rb.velocity = new Vector2(Rb.velocity.x, JumpForce);
+            Animator.SetTrigger("Jump");
+        }
     }
+
 
     // 쉬프트를 누르고 있는 경우만 슬라이드 입력을 처리
     private void Slide()
@@ -81,5 +88,17 @@ public class PlayerController : MonoBehaviour
     private void UpdateGroundStatus()
     {
         IsGrounded = Physics2D.OverlapCircle(GroundCheck.position, GroundCheckRadius, GroundLayer);
+    }
+
+    /// Obstacle 장애물과 플레이어가 부딧칠 경우 1의 대미지를 받음
+    public void TakeDamage()
+    {
+        Health -= 1;
+
+        // 체력이 0 이하가 되면 게임오버
+        if (Health <= 0)
+        {
+            // 게임오버 애니메이션 및 게임오버 UI활성화?
+        }
     }
 }
