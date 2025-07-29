@@ -6,19 +6,16 @@ public class PlayerController : MonoBehaviour
     public float MoveSpeed = 5f;
 
     [Header("점프 관련")]
-    public float JumpForce = 10f;
-    private bool IsGrounded = false;
+    public float JumpForce = 0f;
+    private bool IsTouchingBlock = false; // Block 태그 오브젝트와 접촉 중인지
+    private int JumpCount = 0; // 현재 점프 횟수
+    public int MaxJumpCount = 2; // 최대 점프 횟수
 
     [Header("슬라이드 관련")]
     private bool IsSliding = false;
 
-    [Header("바닥 체크 관련")] // GroundLayer에서만 점프 가능
-    public Transform GroundCheck; // 추후 투명도 설정으로 긴 바닥 체크를 구현 예정
-    public float GroundCheckRadius = 0.2f; // 해당 범위에 GroundLayer가 있을 경우만 점프, 슬라이드 가능
-    public LayerMask GroundLayer; // 바닥 레이어 
-
-    private float hitTime = -999f;              // 마지막으로 피격당한 시간
-    public float invincibleDuration = 1.0f;     // 무적 지속 시간
+    private float HitTime = -999f;              // 마지막으로 피격당한 시간
+    public float InvincibleDuration = 1.0f;     // 무적 지속 시간
 
     private Rigidbody2D Rb;
     private Animator Animator;
@@ -33,14 +30,13 @@ public class PlayerController : MonoBehaviour
         Animator = GetComponent<Animator>();
     }
 
-    // 매 프레임마다 이동, 바닥 체크, 입력(점프/슬라이드)을 처리
-    // GroundLayer에 있는 조건만 점프 가능
+    // 매 프레임마다 이동, 입력(점프/슬라이드)을 처리
     private void Update()
     {
         MoveForward();
-        UpdateGroundStatus();
 
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded)
+        // Block 태그 오브젝트에 닿아있거나, 이중점프 횟수 미만일 때만 점프
+        if (Input.GetKeyDown(KeyCode.Space) && (IsTouchingBlock || JumpCount < MaxJumpCount))
         {
             Jump();
         }
@@ -57,17 +53,19 @@ public class PlayerController : MonoBehaviour
     // 플레이어가 점프하도록 처리
     private void Jump()
     {
-        if (Rb.velocity.y <= 0.1f) // 점프 중 상승 중에는 막기
+        if (JumpCount < MaxJumpCount)
         {
-            Rb.velocity = new Vector2(Rb.velocity.x, JumpForce);
+            Rb.velocity = new Vector2(Rb.velocity.x, 0f); // 기존 Y속도 초기화
+            Rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
             Animator.SetTrigger("Jump");
+            JumpCount++;
         }
     }
 
     // 쉬프트를 누르고 있는 경우만 슬라이드 입력을 처리
     private void Slide()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && IsGrounded)
+        if (Input.GetKey(KeyCode.LeftShift) && IsTouchingBlock)
         {
             if (!IsSliding)
             {
@@ -85,25 +83,37 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // 추가 메소드
-    // 플레이어가 바닥에 닿아있는지 확인
-    private void UpdateGroundStatus()
+    // Block 태그 오브젝트와 충돌 시 바닥에 닿은 것으로 처리
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        IsGrounded = Physics2D.OverlapCircle(GroundCheck.position, GroundCheckRadius, GroundLayer);
+        if (collision.gameObject.CompareTag("Block"))
+        {
+            IsTouchingBlock = true;
+            JumpCount = 0; // 점프 횟수 초기화
+        }
     }
 
-    /// Obstacle 장애물과 플레이어가 부딫칠 경우 1의 대미지를 받음
+    // Block 태그 오브젝트에서 떨어질 때
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Block"))
+        {
+            IsTouchingBlock = false;
+        }
+    }
+
+    // Obstacle 장애물과 플레이어가 부딪칠 경우 1의 대미지를 받고, HitTime 애니메이션이 실행됨
     public void TakeDamage()
     {
         // 무적 상태라면 대미지 무시
-        if (Time.time < hitTime + invincibleDuration)
+        if (Time.time < HitTime + InvincibleDuration)
         {
             return;
         }
 
         // 피격 처리
         Health -= 1;
-        hitTime = Time.time; // 피격 시간 기록
+        HitTime = Time.time; // 피격 시간 기록
 
         // 체력이 -1 이하로 내려가는 경우 방지
         if (Health < -1)

@@ -379,13 +379,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 5
-  JumpForce: 3
-  GroundCheck: {fileID: 600890811}
-  GroundCheckRadius: 0.1
-  GroundLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  invincibleDuration: 1
+  JumpForce: 5
+  MaxJumpCount: 2
+  InvincibleDuration: 1
   Health: 3
 --- !u!1 &519420028
 GameObject:
@@ -506,7 +502,7 @@ GameObject:
   - component: {fileID: 600890811}
   - component: {fileID: 600890810}
   - component: {fileID: 600890812}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: MoveTestBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
