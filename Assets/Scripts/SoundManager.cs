@@ -19,6 +19,8 @@ UISound
 
 public class SoundManager : MonoBehaviour
 {
+    public AudioSource bgm;
+
     public static SoundManager Instance;
 
     private void Awake()
@@ -34,7 +36,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void SFXPlay(string sfxName, AudioClip clip) // 효과음 재생 ("Jump", clip)
+    public void SFXPlay(string sfxName, AudioClip clip) // 효과음 재생 ex) SFXPlay("Jump", clip) clip은 인스펙터 창에서 직접 넣기 
     {
         GameObject go = new GameObject(sfxName + "Sound"); // 소리를 재생하는 오브젝트 생성
         AudioSource audioSource = go.AddComponent<AudioSource>(); // 오브젝트에 AudioSource 컴포넌트 추가
@@ -43,5 +45,13 @@ public class SoundManager : MonoBehaviour
 
         Destroy(go, clip.length); // 효과음이 끝나면 소리 오브젝트 삭제
     }
+
+    public void BGMPlay(AudioClip clip) // 배경음 재생(재생할 배경음 삽입)
+    {
+        bgm.clip = clip; 
+        bgm.loop = true; // 반복
+        bgm.volume = 0.1f; // 배경음 볼륨
+    }
+
 }
 
