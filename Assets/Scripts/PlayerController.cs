@@ -3,11 +3,12 @@
 // 바닥은 Block 태그를 가지게 하였습니다.
 // 장애물은 Obstacle 스크립트를 가진 오브젝트로 설정하였습니다.
 
-
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance { get; private set; } // 싱글톤 인스턴스
+
     [Header("이동 관련")]
     public float MoveSpeed = 5f;
 
@@ -28,6 +29,19 @@ public class PlayerController : MonoBehaviour
 
     // 플레이어 임시 체력 (충돌 테스트)
     public int Health = 3;
+
+    // 싱글톤 인스턴스 생성
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // 컴포넌트(Rigidbody2D, Animator)를 초기화
     private void Start()
