@@ -1775,8 +1775,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quitButton: {fileID: 1745004673}
-  scoreText: {fileID: 0}
-  highScoreText: {fileID: 0}
+  scoreText: {fileID: 1679255916}
+  highScoreText: {fileID: 1282847615}
   hpBarImage: {fileID: 1851612884}
   buttonEffects: []
   revertDelay: 0.5
