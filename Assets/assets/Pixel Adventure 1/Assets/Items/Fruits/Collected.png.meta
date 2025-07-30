@@ -1,7 +1,25 @@
 fileFormatVersion: 2
-guid: 153ba0a2951db2f4b86aad03f84b147e
+guid: be1a5bd13766ec048bab6f4c578baa0f
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -4801923697170587870
+    second: Collected_0
+  - first:
+      213: -8008818501793099674
+    second: Collected_1
+  - first:
+      213: -5647853031727683852
+    second: Collected_2
+  - first:
+      213: 6868876828740441722
+    second: Collected_3
+  - first:
+      213: -3443555461527096104
+    second: Collected_4
+  - first:
+      213: 2831489644526101201
+    second: Collected_5
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -63,16 +81,16 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 0
+  applyGammaDecoding: 1
   swizzle: 50462976
-  cookieLightType: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -85,7 +103,20 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -98,7 +129,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,34 +141,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI2_0
+      name: Collected_0
       rect:
         serializedVersion: 2
-        x: 486
-        y: 820
-        width: 950
-        height: 59
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 51b34aa9e276ed2429503ae0cf057968
-      internalID: -1262736815
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: jump
-      rect:
-        serializedVersion: 2
-        x: 109
-        y: 105
-        width: 329
-        height: 215
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +155,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 33d9f9256feead54790682bece6cb015
-      internalID: 235543006
+      spriteID: b980ab8f44c734c448b9a856148e3a5b
+      internalID: -4801923697170587870
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI2_1
+      name: Collected_1
       rect:
         serializedVersion: 2
-        x: 1508
-        y: 105
-        width: 329
-        height: 216
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,8 +176,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e2d7dc8ae738434faded80a4f00c2e3
-      internalID: 904828176
+      spriteID: 000eff999f38b4347948598b2e102cbe
+      internalID: -8008818501793099674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collected_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a40985225743947488dbe56ef7075479
+      internalID: -5647853031727683852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collected_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59bfd23870a0f194e8fc585b1c544243
+      internalID: 6868876828740441722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collected_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85c3ac564a700ed4e896043be4ab63d9
+      internalID: -3443555461527096104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collected_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0dd54906e5c0da841bc10f831037af33
+      internalID: 2831489644526101201
       vertices: []
       indices: 
       edges: []
@@ -183,9 +277,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      UI2_0: -1262736815
-      UI2_1: 904828176
-      jump: 235543006
+      Collected_0: -4801923697170587870
+      Collected_1: -8008818501793099674
+      Collected_2: -5647853031727683852
+      Collected_3: 6868876828740441722
+      Collected_4: -3443555461527096104
+      Collected_5: 2831489644526101201
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,7 +1,19 @@
 fileFormatVersion: 2
-guid: 153ba0a2951db2f4b86aad03f84b147e
+guid: 666cdca5ea5798c4c83a4ef4b87d64c4
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 4624569668062661555
+    second: Hit (28x24)_0
+  - first:
+      213: 6544220175307782732
+    second: Hit (28x24)_1
+  - first:
+      213: -1443808521566509384
+    second: Hit (28x24)_2
+  - first:
+      213: 1145515516053686660
+    second: Hit (28x24)_3
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -63,16 +75,16 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 0
+  applyGammaDecoding: 1
   swizzle: 50462976
-  cookieLightType: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -85,7 +97,20 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -98,7 +123,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,34 +135,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI2_0
+      name: Hit (28x24)_0
       rect:
         serializedVersion: 2
-        x: 486
-        y: 820
-        width: 950
-        height: 59
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 51b34aa9e276ed2429503ae0cf057968
-      internalID: -1262736815
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: jump
-      rect:
-        serializedVersion: 2
-        x: 109
-        y: 105
-        width: 329
-        height: 215
+        x: 0
+        y: 0
+        width: 28
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +149,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 33d9f9256feead54790682bece6cb015
-      internalID: 235543006
+      spriteID: c1c10573edcf8d5488235a250d01ec10
+      internalID: 4624569668062661555
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI2_1
+      name: Hit (28x24)_1
       rect:
         serializedVersion: 2
-        x: 1508
-        y: 105
-        width: 329
-        height: 216
+        x: 28
+        y: 0
+        width: 28
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,8 +170,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e2d7dc8ae738434faded80a4f00c2e3
-      internalID: 904828176
+      spriteID: 80f607165de238748a1b4717115760fb
+      internalID: 6544220175307782732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hit (28x24)_2
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 0
+        width: 28
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddbcee8f6e4b0b24c86e11a7f1463a60
+      internalID: -1443808521566509384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hit (28x24)_3
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 0
+        width: 28
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e64d01463c42924d8b439561b62eea2
+      internalID: 1145515516053686660
       vertices: []
       indices: 
       edges: []
@@ -183,9 +229,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      UI2_0: -1262736815
-      UI2_1: 904828176
-      jump: 235543006
+      Hit (28x24)_0: 4624569668062661555
+      Hit (28x24)_1: 6544220175307782732
+      Hit (28x24)_2: -1443808521566509384
+      Hit (28x24)_3: 1145515516053686660
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

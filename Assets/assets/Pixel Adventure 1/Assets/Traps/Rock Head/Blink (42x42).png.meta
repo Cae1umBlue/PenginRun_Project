@@ -1,7 +1,19 @@
 fileFormatVersion: 2
-guid: 153ba0a2951db2f4b86aad03f84b147e
+guid: e3e6b3d6c57dc7b488e7d1e8be902988
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 4965478120403269316
+    second: Blink (42x42)_0
+  - first:
+      213: 7853364175085887869
+    second: Blink (42x42)_1
+  - first:
+      213: 3654695632555541323
+    second: Blink (42x42)_2
+  - first:
+      213: -7771193783775295362
+    second: Blink (42x42)_3
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -63,16 +75,16 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 0
+  applyGammaDecoding: 1
   swizzle: 50462976
-  cookieLightType: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -85,7 +97,20 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -98,7 +123,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,34 +135,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI2_0
+      name: Blink (42x42)_0
       rect:
         serializedVersion: 2
-        x: 486
-        y: 820
-        width: 950
-        height: 59
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 51b34aa9e276ed2429503ae0cf057968
-      internalID: -1262736815
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: jump
-      rect:
-        serializedVersion: 2
-        x: 109
-        y: 105
-        width: 329
-        height: 215
+        x: 0
+        y: 0
+        width: 42
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +149,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 33d9f9256feead54790682bece6cb015
-      internalID: 235543006
+      spriteID: bdfe87cc1cb1eea40a69a31db1419b78
+      internalID: 4965478120403269316
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI2_1
+      name: Blink (42x42)_1
       rect:
         serializedVersion: 2
-        x: 1508
-        y: 105
-        width: 329
-        height: 216
+        x: 42
+        y: 0
+        width: 42
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,8 +170,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e2d7dc8ae738434faded80a4f00c2e3
-      internalID: 904828176
+      spriteID: 1d6dc77d256a70747b63b07a09746d8a
+      internalID: 7853364175085887869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blink (42x42)_2
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 0
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7645ad00e03ad894995e3d980b476fae
+      internalID: 3654695632555541323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blink (42x42)_3
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 0
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11db1cff4606f72429aa6d21aa895dbb
+      internalID: -7771193783775295362
       vertices: []
       indices: 
       edges: []
@@ -183,9 +229,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      UI2_0: -1262736815
-      UI2_1: 904828176
-      jump: 235543006
+      Blink (42x42)_0: 4965478120403269316
+      Blink (42x42)_1: 7853364175085887869
+      Blink (42x42)_2: 3654695632555541323
+      Blink (42x42)_3: -7771193783775295362
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
