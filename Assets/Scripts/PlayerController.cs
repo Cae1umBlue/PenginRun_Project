@@ -30,6 +30,11 @@ public class PlayerController : MonoBehaviour
     // 플레이어 임시 체력 (충돌 테스트)
     public int currentHP = 100;
 
+    // Collider 관련
+    private Collider2D PlayerCollider;
+    private Vector2 OriginalColliderOffset;
+    public float JumpColliderYOffset = 0.5f; // 점프 시 올릴 y값
+
     // 싱글톤 인스턴스 생성
     private void Awake()
     {
@@ -48,6 +53,11 @@ public class PlayerController : MonoBehaviour
     {
         Rb = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
+        PlayerCollider = GetComponent<Collider2D>();
+        if (PlayerCollider != null)
+        {
+            OriginalColliderOffset = PlayerCollider.offset;
+        }
     }
 
     // 매 프레임마다 이동, 입력(점프/슬라이드)을 처리
@@ -62,6 +72,7 @@ public class PlayerController : MonoBehaviour
         }
 
         Slide();
+        RestoreColliderOffsetIfNeeded();
     }
 
     // 플레이어를 오른쪽으로 이동
@@ -79,6 +90,14 @@ public class PlayerController : MonoBehaviour
             Rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
             Animator.SetTrigger("Jump");
             JumpCount++;
+
+            // 점프 시 Collider의 y 오프셋을 올림
+            if (PlayerCollider != null)
+            {
+                var offset = PlayerCollider.offset;
+                offset.y = OriginalColliderOffset.y + JumpColliderYOffset;
+                PlayerCollider.offset = offset;
+            }
         }
     }
 
@@ -110,6 +129,12 @@ public class PlayerController : MonoBehaviour
         {
             IsTouchingBlock = true;
             JumpCount = 0; // 점프 횟수 초기화
+
+            // 점프가 끝났으므로 Collider 오프셋 복구
+            if (PlayerCollider != null)
+            {
+                PlayerCollider.offset = OriginalColliderOffset;
+            }
         }
     }
 
@@ -119,6 +144,16 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Block"))
         {
             IsTouchingBlock = false;
+        }
+    }
+
+    // 점프가 끝났을 때 Collider 오프셋을 복구
+    private void RestoreColliderOffsetIfNeeded()
+    {
+        // 바닥에 닿아있고, Collider 오프셋이 원래 값이 아니면 복구
+        if (IsTouchingBlock && PlayerCollider != null && PlayerCollider.offset != OriginalColliderOffset)
+        {
+            PlayerCollider.offset = OriginalColliderOffset;
         }
     }
 
