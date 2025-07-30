@@ -20,7 +20,7 @@ UISound
 
 public class SoundManager : MonoBehaviour
 {
-    public AudioSource bgm;
+    public AudioSource bgSound;
 
     public static SoundManager Instance;
 
@@ -48,11 +48,12 @@ public class SoundManager : MonoBehaviour
         Destroy(go, clip.length); // 효과음이 끝나면 소리 오브젝트 삭제
     }
 
-    public void BGMPlay(AudioClip clip) // 배경음 재생(재생할 배경음 삽입)
+    public void BgSoundPlay(AudioClip clip) // 배경음 재생(재생할 배경음 삽입)
     {
-        bgm.clip = clip; 
-        bgm.loop = true; // 반복
-        bgm.volume = 0.1f; // 배경음 볼륨
+        bgSound.clip = clip; 
+        bgSound.loop = true; // 반복
+        bgSound.volume = 0.1f; // 배경음 볼륨
+        bgSound.Play();
     }
 
 }
