@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 /* 제작 해야할 목록
@@ -20,8 +21,9 @@ UISound
 
 public class SoundManager : MonoBehaviour
 {
-    public AudioSource bgm;
-
+    public AudioMixer mixer;
+    public AudioSource bgSound;
+    public AudioClip[] bgList;
     public static SoundManager Instance;
 
     private void Awake()
@@ -30,7 +32,7 @@ public class SoundManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(Instance);
-            //SceneManager.sceneLoaded += OnSceneLoaded; // 씬 이동시 배경음 메서드 추가
+            SceneManager.sceneLoaded += OnSceneLoaded; // 씬 이동시 배경음 메서드 추가
         }
         else
         {
@@ -38,21 +40,33 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1) // 씬에 따라 배경음악 변경
+    {
+        for(int i =0; i < bgList.Length; i++)
+        {
+            if(arg0.name == bgList[i].name)
+                BgSoundPlay(bgList[i]);
+        }
+    }
+
     public void SFXPlay(string sfxName, AudioClip clip) // 효과음 재생 ex) SFXPlay("Jump", clip) clip은 인스펙터 창에서 직접 넣기 
     {
         GameObject go = new GameObject(sfxName + "Sound"); // 소리를 재생하는 오브젝트 생성
         AudioSource audioSource = go.AddComponent<AudioSource>(); // 오브젝트에 AudioSource 컴포넌트 추가
+        audioSource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
         audioSource.clip = clip;
         audioSource.Play();
 
         Destroy(go, clip.length); // 효과음이 끝나면 소리 오브젝트 삭제
     }
 
-    public void BGMPlay(AudioClip clip) // 배경음 재생(재생할 배경음 삽입)
+    public void BgSoundPlay(AudioClip clip) // 배경음 재생(재생할 배경음 삽입)
     {
-        bgm.clip = clip; 
-        bgm.loop = true; // 반복
-        bgm.volume = 0.1f; // 배경음 볼륨
+        bgSound.outputAudioMixerGroup = mixer.FindMatchingGroups("BGM")[0];
+        bgSound.clip = clip; 
+        bgSound.loop = true; // 반복
+        bgSound.volume = 0.1f; // 배경음 볼륨
+        bgSound.Play();
     }
 
 }
