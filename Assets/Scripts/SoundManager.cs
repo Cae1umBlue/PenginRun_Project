@@ -21,7 +21,7 @@ UISound
 public class SoundManager : MonoBehaviour
 {
     public AudioSource bgSound;
-
+    public AudioClip[] bgList;
     public static SoundManager Instance;
 
     private void Awake()
