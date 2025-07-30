@@ -8,89 +8,98 @@ using System.Collections;
 // 게임 상태를 나타내는 열거형
 public enum GameState
 {
+    Ready,      // 시작 전 준비 단계 (인트로 UI 노출)
     Playing,    // 플레이 중
     GameOver    // 게임 오버
 }
 
-// 게임 흐름과 난이도 상승, 종료 처리를 관리하는 싱글톤 매니저
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }  // 싱글톤 인스턴스
-    public GameState CurrentState { get; private set; }       // 현재 게임 상태
+    public static GameManager Instance { get; private set; }
+    public GameState CurrentState { get; private set; }
 
-    [SerializeField] private float difficultyInterval = 30f;  // 난이도 상승 간격(초)
-    [SerializeField] private float speedIncrement = 0.5f;  // 난이도 상승 시 속도 증가량
+    [SerializeField] private float difficultyInterval = 30f;
+    [SerializeField] private float speedIncrement = 0.5f;
 
-    private Coroutine difficultyRoutine;                      // 난이도 상승 코루틴 참조
+    private Coroutine difficultyRoutine;
 
     private void Awake()
     {
-        // 싱글톤 패턴 설정
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);  // 씬 로드 시에도 유지
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject);            // 중복 인스턴스 파괴
+            Destroy(gameObject);
         }
     }
 
     private void Start()
     {
-        // 게임 시작 직후 바로 플레이 상태로 전환
-        CurrentState = GameState.Playing;
-        Time.timeScale = 1f;               // 시간 흐름 정상
+        // 준비 단계로 진입
+        CurrentState = GameState.Ready;
+        Time.timeScale = 0f;
+
+        // 인트로 UI만 노출
+        UIManager.Instance.ShowIntroUI();
+    }
+
+    /// <summary>
+    /// 인트로 Start 버튼에 연결
+    /// </summary>
+    public void StartGame()
+    {
+        // UI 전환
+        UIManager.Instance.ShowInGameUI();
 
         // 점수 초기화
         ScoreManager.Instance.ResetScore();
+
+        // 실제 플레이 상태로 진입
+        CurrentState = GameState.Playing;
+        Time.timeScale = 1f;
 
         // 난이도 상승 코루틴 시작
         difficultyRoutine = StartCoroutine(DifficultyCoroutine());
     }
 
-    // 장애물 충돌 등으로 게임 오버 시 호출
     public void GameOver()
     {
-        if (CurrentState != GameState.Playing) return;  // 플레이 중이 아닐 때 무시
-        CurrentState = GameState.GameOver;              // 상태 변경
-        Time.timeScale = 0f;                            // 시간 흐름 멈춤
+        if (CurrentState != GameState.Playing) return;
 
-        // 난이도 상승 코루틴 종료
+        CurrentState = GameState.GameOver;
+        Time.timeScale = 0f;
+
         if (difficultyRoutine != null)
             StopCoroutine(difficultyRoutine);
 
-        // 최고 점수 저장 및 게임오버 UI 표시
         ScoreManager.Instance.SaveHighScore();
         UIManager.Instance.ShowGameOverUI();
     }
 
-    // 게임 오버 후 재시작 버튼에서 호출
     public void RestartGame()
     {
-        Time.timeScale = 1f;                                              // 시간 흐름 복구
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);       // 현재 씬 재로드
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    // 일정 시간마다 난이도를 높이는 코루틴
     private IEnumerator DifficultyCoroutine()
     {
         while (CurrentState == GameState.Playing)
         {
             yield return new WaitForSeconds(difficultyInterval);
-            IncreaseDifficulty();  // 플레이어 속도 증가
+            IncreaseDifficulty();
         }
     }
 
-    // 실제 난이도 상승 처리 (플레이어 속도 증가)
     public void IncreaseDifficulty()
     {
         if (PlayerController.Instance != null)
             PlayerController.Instance.moveSpeed += speedIncrement;
     }
 
-    // 게임 종료 처리 (UI 버튼에서 호출)
     public void QuitGame()
     {
         Debug.Log("게임 종료 시도");
