@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7360891799213349048}
   - component: {fileID: 1621400856843256059}
   - component: {fileID: 4751465444264198011}
+  - component: {fileID: 448776819473288397}
   m_Layer: 0
   m_Name: Item_SpeedUp
   m_TagString: Untagged
@@ -130,3 +131,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &448776819473288397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4119314357434262827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da22fdbae9ae9ba43865c92e3930b225, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemType: 2
+  scoreValue: 0
+  healAmount: 0
+  speedAmount: 1
+  effectDuration: 0

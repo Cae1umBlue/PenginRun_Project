@@ -6,8 +6,19 @@ public class CameraController : MonoBehaviour
     public float FixedY = 0f;              // Y값 (고정)
     public float ZOffset = -10f;           // 카메라 Z축 거리
     public float FollowSpeed = 5f;         // 따라가기 속도
+    public float XOffset = 4.5f;           // 타겟 중심값 + X축 오프셋
 
     private Transform Target;              // 따라갈 대상
+
+    public static CameraController Instance { get; private set; } // 싱글톤 인스턴스
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+    }
 
     private void Start()
     {
@@ -24,8 +35,14 @@ public class CameraController : MonoBehaviour
     {
         if (Target != null)
         {
-            Vector3 targetPos = new Vector3(Target.position.x, FixedY, ZOffset);
+            Vector3 targetPos = new Vector3(Target.position.x + XOffset, FixedY, ZOffset);
             transform.position = Vector3.Lerp(transform.position, targetPos, FollowSpeed * Time.deltaTime);
         }
+    }
+
+    // 외부에서 XOffset 값을 동적으로 변경할 수 있도록 메서드
+    public void SetXOffset(float offset)
+    {
+        XOffset = offset;
     }
 }
