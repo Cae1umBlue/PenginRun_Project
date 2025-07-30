@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; }
     public Button quitButton;
     public TMP_Text scoreText;
+    public TMP_Text highScoreText;
     public Image hpBarImage;
 
     private float currentHP = 1f;
@@ -70,6 +71,12 @@ public class UIManager : MonoBehaviour
         {
             scoreText.text = "점수: " + score.ToString();
         }
+    }
+
+    public void UpdateHighScoreUI(int highScore)
+    {
+        if (highScoreText != null)
+            highScoreText.text = "최고점: " + highScore;
     }
 
     IEnumerator RevertAfterDelay(Image image, Sprite originalSprite)
