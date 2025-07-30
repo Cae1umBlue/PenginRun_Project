@@ -149,9 +149,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 556727675}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e76a253a9d9bd2c44987f0c729e68e7d, type: 3}
+  m_Script: {fileID: 11500000, guid: 438bae92e0a220149b683c63e2692817, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  difficultyInterval: 30
+  speedIncrement: 0.5
 --- !u!4 &556727677
 Transform:
   m_ObjectHideFlags: 0
@@ -159,6 +161,55 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 556727675}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &748313883
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 748313885}
+  - component: {fileID: 748313884}
+  m_Layer: 0
+  m_Name: ItemSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &748313884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748313883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40ae39237aa3d3d4c939468c2f592203, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoints: []
+  scoreItemPrefab: {fileID: 0}
+  healItemPrefab: {fileID: 0}
+  speedUpItemPrefab: {fileID: 0}
+  slowDownItemPrefab: {fileID: 0}
+--- !u!4 &748313885
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748313883}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -193,7 +244,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 966664459}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d0008e45c577cf488b3152014e76669, type: 3}
+  m_Script: {fileID: 11500000, guid: 17f85dbafbb8eb04e8466329a0014355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &966664461
@@ -633,3 +684,4 @@ SceneRoots:
   - {fileID: 2023343414}
   - {fileID: 556727677}
   - {fileID: 966664461}
+  - {fileID: 748313885}
