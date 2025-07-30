@@ -195,44 +195,4 @@ public class PlayerController : MonoBehaviour
     {
         currentHP += amount;
     }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        // 아이템 오브젝트와 충돌 시
-        Item item = other.GetComponent<Item>();
-        if (item != null)
-        {
-            switch (item.itemType)
-            {
-                case ItemType.Score:
-                    ScoreManager.Instance.AddScore(item.scoreValue);
-                    break;
-
-                case ItemType.Heal:
-                    Heal(item.healAmount);
-                    UIManager.Instance.UpdateHPUI((float)currentHP / 100f); // 예시: 최대 체력 100 기준
-                    break;
-
-                case ItemType.SpeedUp:
-                    moveSpeed += item.speedAmount;
-                    StartCoroutine(ResetSpeedAfterDuration(item.speedAmount, item.effectDuration));
-                    break;
-
-                case ItemType.SlowDown:
-                    moveSpeed -= item.speedAmount;
-                    StartCoroutine(ResetSpeedAfterDuration(-item.speedAmount, item.effectDuration));
-                    break;
-            }
-
-            // 아이템 오브젝트 파괴
-            Destroy(item.gameObject);
-        }
-    }
-
-    // 일정 시간 후 속도 원상복구 코루틴
-    private IEnumerator ResetSpeedAfterDuration(float amount, float duration)
-    {
-        yield return new WaitForSeconds(duration);
-        moveSpeed -= amount;
-    }
 }
