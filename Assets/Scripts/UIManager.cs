@@ -13,9 +13,6 @@ public class UIManager : MonoBehaviour
 
     private float currentHP = 1f;
     private float hpDecreaseSpeed = 0.01f; // 초당 감소값
-    private bool isDead = false;
-
-
 
     [System.Serializable]
 
