@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using System.Collections;
 
 // 게임 상태를 나타내는 열거형
@@ -9,14 +12,14 @@ public enum GameState
     GameOver    // 게임 오버
 }
 
-// 게임 흐름과 난이도 상승을 관리하는 싱글톤 매니저
+// 게임 흐름과 난이도 상승, 종료 처리를 관리하는 싱글톤 매니저
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }  // 싱글톤 인스턴스
     public GameState CurrentState { get; private set; }       // 현재 게임 상태
 
     [SerializeField] private float difficultyInterval = 30f;  // 난이도 상승 간격(초)
-    [SerializeField] private float speedIncrement = 0.5f;   // 난이도 상승 시 속도 증가량
+    [SerializeField] private float speedIncrement = 0.5f;  // 난이도 상승 시 속도 증가량
 
     private Coroutine difficultyRoutine;                      // 난이도 상승 코루틴 참조
 
@@ -60,7 +63,7 @@ public class GameManager : MonoBehaviour
 
         // 최고 점수 저장 및 게임오버 UI 표시
         ScoreManager.Instance.SaveHighScore();
-        // UIManager.Instance.ShowGameOverUI();
+        UIManager.Instance.ShowGameOverUI();
     }
 
     // 게임 오버 후 재시작 버튼에서 호출
@@ -85,5 +88,16 @@ public class GameManager : MonoBehaviour
     {
         if (PlayerController.Instance != null)
             PlayerController.Instance.moveSpeed += speedIncrement;
+    }
+
+    // 게임 종료 처리 (UI 버튼에서 호출)
+    public void QuitGame()
+    {
+        Debug.Log("게임 종료 시도");
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }
