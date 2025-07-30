@@ -1381,6 +1381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quitButton: {fileID: 1745004673}
   scoreText: {fileID: 1969281111}
+  highScoreText: {fileID: 1663726389}
   hpBarImage: {fileID: 1851612884}
   buttonEffects: []
   revertDelay: 0.5
@@ -2389,10 +2390,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoints: []
-  scoreItemPrefab: {fileID: 0}
-  healItemPrefab: {fileID: 0}
-  speedUpItemPrefab: {fileID: 0}
-  slowDownItemPrefab: {fileID: 0}
+  scoreItemPrefab: {fileID: 2343876923634216488, guid: 92cc884feca3e394ca06b175ba566c07, type: 3}
+  healItemPrefab: {fileID: 8260469682885271453, guid: efb0b69d7c9b07440a9742dca1f8bec2, type: 3}
+  speedUpItemPrefab: {fileID: 3386686147359923941, guid: 9f921a21c31987b439ff67bd8a4e7bf7, type: 3}
+  slowDownItemPrefab: {fileID: 4119314357434262827, guid: fb4208cc6321414489a0a7de26467c3c, type: 3}
 --- !u!4 &1246178814
 Transform:
   m_ObjectHideFlags: 0
@@ -3188,7 +3189,7 @@ GameObject:
   - component: {fileID: 1663726390}
   - component: {fileID: 1663726389}
   m_Layer: 5
-  m_Name: HighestScoreUI
+  m_Name: HighScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
