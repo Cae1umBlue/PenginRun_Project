@@ -195,6 +195,10 @@ public class PlayerController : MonoBehaviour
         if (currentHP <= 0)
         {
             // 게임오버 애니메이션 및 게임오버 UI 활성화?
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.GameOver();
+            }
         }
     }
 
