@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 /* 제작 해야할 목록
@@ -20,6 +21,7 @@ UISound
 
 public class SoundManager : MonoBehaviour
 {
+    public AudioMixer mixer;
     public AudioSource bgSound;
     public AudioClip[] bgList;
     public static SoundManager Instance;
