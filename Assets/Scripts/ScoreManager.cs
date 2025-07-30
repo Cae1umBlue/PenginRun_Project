@@ -40,7 +40,7 @@ public class ScoreManager : MonoBehaviour
     {
         CurrentScore += amount;
         // 점수 변경 시 UI 갱신
-        // UIManager.Instance.UpdateScoreUI(CurrentScore);
+        UIManager.Instance.UpdateScoreUI(CurrentScore);
     }
 
     // 점수를 0으로 리셋할 때 호출 (게임 시작·재시작)
@@ -48,7 +48,7 @@ public class ScoreManager : MonoBehaviour
     {
         CurrentScore = 0;
         // 리셋된 점수 UI 갱신
-        // UIManager.Instance.UpdateScoreUI(CurrentScore);
+        UIManager.Instance.UpdateScoreUI(CurrentScore);
     }
 
     // 저장된 최고 점수를 불러올 때 호출 (없으면 0)
@@ -56,7 +56,7 @@ public class ScoreManager : MonoBehaviour
     {
         HighScore = PlayerPrefs.GetInt(HighScoreKey, 0);
         // 불러온 최고점 UI 갱신
-        // UIManager.Instance.UpdateHighScoreUI(HighScore);
+        UIManager.Instance.UpdateHighScoreUI(HighScore);
     }
 
     // 현재 점수를 최고 점수와 비교해 저장할 때 호출
@@ -68,7 +68,7 @@ public class ScoreManager : MonoBehaviour
             PlayerPrefs.SetInt(HighScoreKey, HighScore);
             PlayerPrefs.Save();
             // 저장된 최고점 UI 갱신
-            // UIManager.Instance.UpdateHighScoreUI(HighScore);
+            UIManager.Instance.UpdateHighScoreUI(HighScore);
         }
     }
 }
