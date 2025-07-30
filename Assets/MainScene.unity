@@ -1379,12 +1379,12 @@ GameObject:
   - component: {fileID: 970322214}
   - component: {fileID: 970322213}
   m_Layer: 5
-  m_Name: ResultScreen
+  m_Name: GameOverUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &970322212
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1788,8 +1788,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 12, y: 424}
-  m_SizeDelta: {x: 1241.9265, y: 89.9492}
+  m_AnchoredPosition: {x: 14.030762, y: 445.44745}
+  m_SizeDelta: {x: 937.1528, y: 49.2278}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1126291703
 MonoBehaviour:
@@ -1967,7 +1967,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1388260000
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2468,8 +2468,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 11.9592285, y: 424.20715}
-  m_SizeDelta: {x: 1244.9736, y: 94.3358}
+  m_AnchoredPosition: {x: 14, y: 445.56085}
+  m_SizeDelta: {x: 939.4521, y: 51.6285}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1851612884
 MonoBehaviour:
@@ -2642,7 +2642,7 @@ GameObject:
   - component: {fileID: 1969281112}
   - component: {fileID: 1969281111}
   m_Layer: 5
-  m_Name: CurrentScore
+  m_Name: ScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
