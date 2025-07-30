@@ -7,14 +7,16 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
-
-
     public Button quitButton;
-
-   
     public TMP_Text scoreText;
+    public Image hpBarImage;
 
-    
+    private float currentHP = 1f;
+    private float hpDecreaseSpeed = 0.01f; // 초당 감소값
+    private bool isDead = false;
+
+
+
     [System.Serializable]
 
     public class ButtonEffect
@@ -41,6 +43,8 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+
+
         quitButton.onClick.AddListener(QuitGame);
 
         foreach (var effect in buttonEffects)
@@ -100,6 +104,24 @@ public class UIManager : MonoBehaviour
         targetUI.SetActive(true);
         targetUI.transform.SetAsLastSibling();
     }
+
+    public void UpdateHPUI(float hpRatio)
+    {
+        hpRatio = Mathf.Clamp01(hpRatio); // 0 ~ 1 사이로 제한
+        if (hpBarImage != null)
+            hpBarImage.fillAmount = hpRatio;
+    }
+
+    private void Update()
+    {
+        // 임시: 시간이 지날수록 줄어듦
+        currentHP -= hpDecreaseSpeed * Time.deltaTime;
+        currentHP = Mathf.Max(currentHP, 0f);
+
+        UpdateHPUI(currentHP);
+    }
+
+    
 
     public void ShowIntroUI() => ShowUI(introUI);
     public void ShowInGameUI() => ShowUI(inGameUI);
