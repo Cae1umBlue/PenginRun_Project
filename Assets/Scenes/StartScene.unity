@@ -1495,7 +1495,7 @@ MonoBehaviour:
   FixedY: 0
   ZOffset: -10
   FollowSpeed: 5
-  XOffset: 4.5
+  XOffset: 5
 --- !u!1 &706153229
 GameObject:
   m_ObjectHideFlags: 0
