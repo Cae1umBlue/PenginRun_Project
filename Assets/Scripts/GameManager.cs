@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
 
         // 최고 점수 저장 및 게임오버 UI 표시
         ScoreManager.Instance.SaveHighScore();
-        // UIManager.Instance.ShowGameOverUI();
+        UIManager.Instance.ShowGameOverUI();
     }
 
     // 게임 오버 후 재시작 버튼에서 호출
