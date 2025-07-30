@@ -38,7 +38,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1) // ¾À¿¡ µû¶ó ¹è°æÀ½¾Ç 
+    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1) // ¾À¿¡ µû¶ó ¹è°æÀ½¾Ç º¯°æ
     {
         for(int i =0; i < bgList.Length; i++)
         {
