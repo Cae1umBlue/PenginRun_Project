@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
 
 // 아이템 종류 정의
 public enum ItemType
@@ -37,7 +36,7 @@ public class Item : MonoBehaviour
             case ItemType.Heal:
                 // 체력 회복 아이템 획득
                 PlayerController.Instance.Heal(healAmount);  // PlayerController에 Heal(int) 메서드 필요
-                UIManager.Instance.UpdateHPUI(PlayerController.Instance.currentHP);
+                // UIManager.Instance.UpdateHPUI(PlayerController.Instance.currentHP);
                 break;
 
             case ItemType.SpeedUp:
