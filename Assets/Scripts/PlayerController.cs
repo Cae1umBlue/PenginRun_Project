@@ -36,6 +36,10 @@ public class PlayerController : MonoBehaviour
     private Vector2 OriginalColliderOffset;
     public float JumpColliderYOffset = 0.5f; // 점프 시 올릴 y값
 
+    [Header("효과음 클립")]
+    public AudioClip jumpClip;
+    public AudioClip slideClip;
+
     // 싱글톤 인스턴스 생성
     private void Awake()
     {
@@ -100,6 +104,10 @@ public class PlayerController : MonoBehaviour
             Animator.SetTrigger("Jump");
             JumpCount++;
 
+            // 점프 효과음 재생
+            if (jumpClip != null)
+                SoundManager.Instance.SFXPlay("Jump", jumpClip);
+
             // 점프 시 Collider의 y 오프셋을 올림
             if (PlayerCollider != null)
             {
@@ -119,6 +127,10 @@ public class PlayerController : MonoBehaviour
             {
                 IsSliding = true;
                 Animator.SetBool("Slide", true);
+
+                // 슬라이드 효과음 재생
+                if (slideClip != null)
+                    SoundManager.Instance.SFXPlay("Slide", slideClip);
             }
         }
         else
