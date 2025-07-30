@@ -1,19 +1,20 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using TMPro;
+
 
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
     public Button quitButton;
-    public TMP_Text scoreText;
-    public TMP_Text highScoreText;
+    public Text scoreText;
+    public Text highScoreText;
     public Image hpBarImage;
 
     private float currentHP = 1f;
     private float hpDecreaseSpeed = 0.01f; // 초당 감소값
+
 
     public void OnStartButtonPressed()
     {
@@ -33,7 +34,7 @@ public class UIManager : MonoBehaviour
     public ButtonEffect[] buttonEffects;
     public float revertDelay = 0.5f;
 
-    
+
     public GameObject introUI;
     public GameObject inGameUI;
     public GameObject gameOverUI;
@@ -93,11 +94,11 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("게임 종료 시도");
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false; //에디터에서 종료 누를 시
-        #else
+#else
         Application.Quit(); //실제 빌드에서 종료 누를시
-        #endif
+#endif
     }
 
     // UI 전환 제어
@@ -123,16 +124,9 @@ public class UIManager : MonoBehaviour
             hpBarImage.fillAmount = hpRatio;
     }
 
-    private void Update()
-    {
-        // 임시: 시간이 지날수록 줄어듦
-        currentHP -= hpDecreaseSpeed * Time.deltaTime;
-        currentHP = Mathf.Max(currentHP, 0f);
-
-        UpdateHPUI(currentHP);
-    }
-
     
+
+
 
     public void ShowIntroUI() => ShowUI(introUI);
     public void ShowInGameUI() => ShowUI(inGameUI);
