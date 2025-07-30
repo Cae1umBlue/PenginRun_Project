@@ -950,14 +950,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8560411c1f4ec9644842dc662d3247d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonEffects:
-  - button: {fileID: 1371961499}
-    targetImage: {fileID: 1371961500}
-    newSprite: {fileID: -603649934, guid: 153ba0a2951db2f4b86aad03f84b147e, type: 3}
-  - button: {fileID: 1924471289}
-    targetImage: {fileID: 1924471290}
-    newSprite: {fileID: -240650638, guid: 153ba0a2951db2f4b86aad03f84b147e, type: 3}
-  revertDelay: 1
+  quitButton: {fileID: 0}
+  scoreText: {fileID: 0}
+  buttonEffects: []
+  revertDelay: 0.5
+  introUI: {fileID: 1388259999}
+  inGameUI: {fileID: 996958683}
+  gameOverUI: {fileID: 970322211}
 --- !u!1 &550593272
 GameObject:
   m_ObjectHideFlags: 0
@@ -1384,7 +1383,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &970322212
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1523,7 +1522,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &996958684
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1962,7 +1961,7 @@ GameObject:
   - component: {fileID: 1388260002}
   - component: {fileID: 1388260001}
   m_Layer: 5
-  m_Name: MainMenu
+  m_Name: IntroUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2233,7 +2232,7 @@ GameObject:
   - component: {fileID: 1663726390}
   - component: {fileID: 1663726389}
   m_Layer: 5
-  m_Name: HighestScore
+  m_Name: HighestScoreUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
