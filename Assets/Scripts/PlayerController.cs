@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
 
     [Header("점프 관련")]
-    public float JumpForce = 0f;
+    public float JumpForce = 5f;
     private bool IsTouchingBlock = false; // Block 태그 오브젝트와 접촉 중인지
     private int JumpCount = 0; // 현재 점프 횟수
     public int MaxJumpCount = 2; // 최대 점프 횟수
@@ -132,13 +132,13 @@ public class PlayerController : MonoBehaviour
         }
 
         // 피격 처리
-        currentHP -= 1;
+        currentHP -= 20;
         HitTime = Time.time; // 피격 시간 기록
 
         // 체력이 -1 이하로 내려가는 경우 방지
         if (currentHP < -1)
         {
-            currentHP = -20;
+            currentHP = -1;
         }
 
         // 피격 애니메이션 트리거
