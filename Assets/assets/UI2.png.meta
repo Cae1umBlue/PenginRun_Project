@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -118,7 +118,7 @@ TextureImporter:
         width: 950
         height: 59
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -126,6 +126,48 @@ TextureImporter:
       bones: []
       spriteID: 51b34aa9e276ed2429503ae0cf057968
       internalID: -1262736815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: jump
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 105
+        width: 329
+        height: 215
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33d9f9256feead54790682bece6cb015
+      internalID: 235543006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI2_1
+      rect:
+        serializedVersion: 2
+        x: 1508
+        y: 105
+        width: 329
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e2d7dc8ae738434faded80a4f00c2e3
+      internalID: 904828176
       vertices: []
       indices: 
       edges: []
@@ -142,6 +184,8 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       UI2_0: -1262736815
+      UI2_1: 904828176
+      jump: 235543006
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
