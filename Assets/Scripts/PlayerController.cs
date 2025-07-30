@@ -66,10 +66,18 @@ public class PlayerController : MonoBehaviour
     {
         MoveForward();
 
-        // Block 태그 오브젝트에 닿아있거나, 이중점프 횟수 미만일 때만 점프
-        if (Input.GetKeyDown(KeyCode.Space) && (IsTouchingBlock || JumpCount < MaxJumpCount))
+        // Block 태그 오브젝트와 접촉 중일 때만 점프 가능
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            Jump();
+            if (IsTouchingBlock)
+            {
+                JumpCount = 0; // 바닥에 닿았으면 점프 카운트 리셋
+                Jump();
+            }
+            else if (JumpCount > 0 && JumpCount < MaxJumpCount)
+            {
+                Jump(); // 공중에서만 가능한 더블 점프
+            }
         }
 
         Slide();
