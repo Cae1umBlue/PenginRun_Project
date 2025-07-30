@@ -30,11 +30,20 @@ public class SoundManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(Instance);
-            //SceneManager.sceneLoaded += OnSceneLoaded; // 씬 이동시 배경음 메서드 추가
+            SceneManager.sceneLoaded += OnSceneLoaded; // 씬 이동시 배경음 메서드 추가
         }
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1) // 씬에 따라 배경음악 재생
+    {
+        for(int i =0; i < bgList.Length; i++)
+        {
+            if(arg0.name == bgList[i].name)
+                BgSoundPlay(bgList[i]);
         }
     }
 
