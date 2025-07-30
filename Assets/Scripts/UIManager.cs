@@ -14,6 +14,13 @@ public class UIManager : MonoBehaviour
     private float currentHP = 1f;
     private float hpDecreaseSpeed = 0.01f; // 초당 감소값
 
+    public void OnStartButtonPressed()
+    {
+        HideAllUI();          // 모든 UI 숨기기
+        ShowInGameUI();       // 인게임 UI 보여주기
+        Time.timeScale = 1f;  // 혹시 멈춰있던 시간 재개
+    }
+
     [System.Serializable]
 
     public class ButtonEffect
