@@ -53,6 +53,7 @@ public class SoundManager : MonoBehaviour
     {
         GameObject go = new GameObject(sfxName + "Sound"); // 소리를 재생하는 오브젝트 생성
         AudioSource audioSource = go.AddComponent<AudioSource>(); // 오브젝트에 AudioSource 컴포넌트 추가
+        audioSource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
         audioSource.clip = clip;
         audioSource.Play();
 
@@ -61,6 +62,7 @@ public class SoundManager : MonoBehaviour
 
     public void BgSoundPlay(AudioClip clip) // 배경음 재생(재생할 배경음 삽입)
     {
+        bgSound.outputAudioMixerGroup = mixer.FindMatchingGroups("BGM")[0];
         bgSound.clip = clip; 
         bgSound.loop = true; // 반복
         bgSound.volume = 0.1f; // 배경음 볼륨

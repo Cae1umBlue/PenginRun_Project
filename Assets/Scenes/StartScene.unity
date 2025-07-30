@@ -3933,6 +3933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f17a9f8b0960254cacf4c775cc9e042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixer: {fileID: 24100000, guid: 97579a5e58e3c3c499257038655e8c28, type: 2}
   bgSound: {fileID: 1987154000}
   bgList:
   - {fileID: 8300000, guid: 779971d400cff284093e5db73c356c6b, type: 3}
