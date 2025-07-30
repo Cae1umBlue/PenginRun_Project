@@ -4,6 +4,7 @@
 // 장애물은 Obstacle 스크립트를 가진 오브젝트로 설정하였습니다.
 
 using UnityEngine;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
 
     [Header("점프 관련")]
-    public float JumpForce = 0f;
+    public float JumpForce = 5f;
     private bool IsTouchingBlock = false; // Block 태그 오브젝트와 접촉 중인지
     private int JumpCount = 0; // 현재 점프 횟수
     public int MaxJumpCount = 2; // 최대 점프 횟수
@@ -29,6 +30,11 @@ public class PlayerController : MonoBehaviour
 
     // 플레이어 임시 체력 (충돌 테스트)
     public int currentHP = 100;
+
+    // Collider 관련
+    private Collider2D PlayerCollider;
+    private Vector2 OriginalColliderOffset;
+    public float JumpColliderYOffset = 0.5f; // 점프 시 올릴 y값
 
     // 싱글톤 인스턴스 생성
     private void Awake()
@@ -48,6 +54,11 @@ public class PlayerController : MonoBehaviour
     {
         Rb = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
+        PlayerCollider = GetComponent<Collider2D>();
+        if (PlayerCollider != null)
+        {
+            OriginalColliderOffset = PlayerCollider.offset;
+        }
     }
 
     // 매 프레임마다 이동, 입력(점프/슬라이드)을 처리
@@ -62,6 +73,7 @@ public class PlayerController : MonoBehaviour
         }
 
         Slide();
+        RestoreColliderOffsetIfNeeded();
     }
 
     // 플레이어를 오른쪽으로 이동
@@ -79,6 +91,14 @@ public class PlayerController : MonoBehaviour
             Rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
             Animator.SetTrigger("Jump");
             JumpCount++;
+
+            // 점프 시 Collider의 y 오프셋을 올림
+            if (PlayerCollider != null)
+            {
+                var offset = PlayerCollider.offset;
+                offset.y = OriginalColliderOffset.y + JumpColliderYOffset;
+                PlayerCollider.offset = offset;
+            }
         }
     }
 
@@ -110,6 +130,12 @@ public class PlayerController : MonoBehaviour
         {
             IsTouchingBlock = true;
             JumpCount = 0; // 점프 횟수 초기화
+
+            // 점프가 끝났으므로 Collider 오프셋 복구
+            if (PlayerCollider != null)
+            {
+                PlayerCollider.offset = OriginalColliderOffset;
+            }
         }
     }
 
@@ -119,6 +145,16 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Block"))
         {
             IsTouchingBlock = false;
+        }
+    }
+
+    // 점프가 끝났을 때 Collider 오프셋을 복구
+    private void RestoreColliderOffsetIfNeeded()
+    {
+        // 바닥에 닿아있고, Collider 오프셋이 원래 값이 아니면 복구
+        if (IsTouchingBlock && PlayerCollider != null && PlayerCollider.offset != OriginalColliderOffset)
+        {
+            PlayerCollider.offset = OriginalColliderOffset;
         }
     }
 
@@ -132,13 +168,13 @@ public class PlayerController : MonoBehaviour
         }
 
         // 피격 처리
-        currentHP -= 1;
+        currentHP -= 20;
         HitTime = Time.time; // 피격 시간 기록
 
         // 체력이 -1 이하로 내려가는 경우 방지
         if (currentHP < -1)
         {
-            currentHP = -20;
+            currentHP = -1;
         }
 
         // 피격 애니메이션 트리거
@@ -158,5 +194,45 @@ public class PlayerController : MonoBehaviour
     public void Heal(int amount)
     {
         currentHP += amount;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        // 아이템 오브젝트와 충돌 시
+        Item item = other.GetComponent<Item>();
+        if (item != null)
+        {
+            switch (item.itemType)
+            {
+                case ItemType.Score:
+                    ScoreManager.Instance.AddScore(item.scoreValue);
+                    break;
+
+                case ItemType.Heal:
+                    Heal(item.healAmount);
+                    UIManager.Instance.UpdateHPUI((float)currentHP / 100f); // 예시: 최대 체력 100 기준
+                    break;
+
+                case ItemType.SpeedUp:
+                    moveSpeed += item.speedAmount;
+                    StartCoroutine(ResetSpeedAfterDuration(item.speedAmount, item.effectDuration));
+                    break;
+
+                case ItemType.SlowDown:
+                    moveSpeed -= item.speedAmount;
+                    StartCoroutine(ResetSpeedAfterDuration(-item.speedAmount, item.effectDuration));
+                    break;
+            }
+
+            // 아이템 오브젝트 파괴
+            Destroy(item.gameObject);
+        }
+    }
+
+    // 일정 시간 후 속도 원상복구 코루틴
+    private IEnumerator ResetSpeedAfterDuration(float amount, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        moveSpeed -= amount;
     }
 }
