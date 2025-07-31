@@ -187,8 +187,8 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        // UIManager에 체력 감소 요청 (감소 체력값은 UIManager에서 관리)
-        UIManager.Instance.DecreaseHP();
+        // GameManager에 체력 감소 요청
+        GameManager.Instance.DecreaseHP();
         HitTime = Time.time;
 
         // 피격 애니메이션 트리거
@@ -197,15 +197,10 @@ public class PlayerController : MonoBehaviour
             Animator.SetTrigger("HitTime");
         }
 
-        // UI매니저에서 게임오버를 관리해야함
-        //    if (UIManager.Instance.CurrentHP <= 0)
+        // 게임오버 관리도 GameManager에서 진행
+        //    if (GameManager.Instance.CurrentHP <= 0)
         //    {
-        //        if (GameManager.Instance != null)
-        //        {
-        //            GameManager.Instance.GameOver();
-        //        }
+        //        GameManager.Instance.GameOver();
         //    }
     }
-
-
 }
