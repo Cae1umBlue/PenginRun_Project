@@ -45,6 +45,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip[] sfxList;
     public int channels;
     public float sfxVolume;
+    int channelIndex;
 
     public static SoundManager Instance;
 
