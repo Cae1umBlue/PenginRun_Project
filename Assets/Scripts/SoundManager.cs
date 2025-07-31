@@ -18,6 +18,16 @@ UISound
 점수창
 */
 
+//public enum SFXType
+//{
+//    Jump, // 점프
+//    Slide, // 슬라이딩
+//    Hit, // 장애물 충돌
+//    Fall, // 추락
+//    UISound, // UI 고유 사운드
+//    Click, // UI 클릭 사운드
+//    Score // 점수창 사운드
+//}
 
 public class SoundManager : MonoBehaviour
 {
