@@ -18,16 +18,16 @@ UISound
 점수창
 */
 
-//public enum SFXType
-//{
-//    Jump, // 점프
-//    Slide, // 슬라이딩
-//    Hit, // 장애물 충돌
-//    Fall, // 추락
-//    UISound, // UI 고유 사운드
-//    Click, // UI 클릭 사운드
-//    Score // 점수창 사운드
-//}
+public enum SFXType
+{
+    Jump, 
+    Slide,
+    Hit,
+    Fall,
+    Item,
+    UIClick,
+    Score
+}
 
 public class SoundManager : MonoBehaviour
 {
@@ -59,9 +59,9 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void SFXPlay(string sfxName, AudioClip clip) // 효과음 재생 ex) SFXPlay("Jump", clip) clip은 인스펙터 창에서 직접 넣기 
+    public void SFXPlay(SFXType type, AudioClip clip) // 효과음 재생 ex) SFXPlay("Jump", clip) clip은 인스펙터 창에서 직접 넣기 
     {
-        GameObject go = new GameObject(sfxName + "Sound"); // 소리를 재생하는 오브젝트 생성
+        GameObject go = new GameObject(type + "Sound"); // 소리를 재생하는 오브젝트 생성
         AudioSource audioSource = go.AddComponent<AudioSource>(); // 오브젝트에 AudioSource 컴포넌트 추가
         audioSource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
         audioSource.clip = clip;
