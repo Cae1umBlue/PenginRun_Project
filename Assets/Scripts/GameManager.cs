@@ -19,18 +19,19 @@ public class GameManager : MonoBehaviour
     // 2) UIManager 등에 전파할 이벤트들
     public event Action<GameState> OnStateChanged;
     public event Action<float> OnHPChanged;
-    public event Action<int> OnScoreChanged;
-    public event Action<int> OnHighScoreChanged;
+    public event Action<int>   OnScoreChanged;
+    public event Action<int>   OnHighScoreChanged;
 
     [Header("난이도 설정")]
     [SerializeField] private float difficultyInterval = 30f;
-    [SerializeField] private float speedIncrement = 0.5f;
+    [SerializeField] private float speedIncrement      = 0.5f;
 
     [Header("HP 설정")]
-    [SerializeField] private float initialHP = 1f;
-    [SerializeField] private float hpDecreaseSpeed = 0.01f; // 초당 HP 감소량
+    [SerializeField] private float initialHP         = 1f;
+    [SerializeField] private float hpDecreaseSpeed   = 0.01f; // 초당 HP 감소량
+    [SerializeField] private float damageAmount      = 0.2f;  // 피격 시 기본 감소량
 
-    private float currentHP;
+    private float   currentHP;
     private Coroutine difficultyRoutine;
 
     private void Awake()
@@ -54,7 +55,7 @@ public class GameManager : MonoBehaviour
         SetState(GameState.Intro);
 
         // ScoreManager 이벤트 연결 → GameManager 이벤트로 중계
-        ScoreManager.Instance.OnScoreChanged += s => OnScoreChanged?.Invoke(s);
+        ScoreManager.Instance.OnScoreChanged     += s  => OnScoreChanged?.Invoke(s);
         ScoreManager.Instance.OnHighScoreChanged += hs => OnHighScoreChanged?.Invoke(hs);
     }
 
@@ -63,12 +64,7 @@ public class GameManager : MonoBehaviour
         // 3) Playing 상태에서만 HP 감소 처리
         if (CurrentState != GameState.Playing) return;
 
-        currentHP -= hpDecreaseSpeed * Time.deltaTime;
-        currentHP = Mathf.Clamp01(currentHP);
-        OnHPChanged?.Invoke(currentHP);
-
-        if (currentHP <= 0f)
-            GameOver();
+        DecreaseHP(); // 매 프레임 기본 감소
     }
 
     /// <summary>
@@ -145,6 +141,29 @@ public class GameManager : MonoBehaviour
     {
         if (PlayerController.Instance != null)
             PlayerController.Instance.moveSpeed += speedIncrement;
+    }
+
+    /// <summary>
+    /// HP 감소 (amount 없음 호출 시 기본 damageAmount 감소, 
+    /// amount 지정 시 해당 값만큼 감소)
+    /// </summary>
+    public void DecreaseHP(float amount = -1f)
+    {
+        float delta = (amount < 0f) ? hpDecreaseSpeed * Time.deltaTime : amount;
+        currentHP = Mathf.Clamp01(currentHP - delta);
+        OnHPChanged?.Invoke(currentHP);
+
+        if (currentHP <= 0f)
+            GameOver();
+    }
+
+    /// <summary>
+    /// HP 증가 (힐 아이템 등에서 호출)
+    /// </summary>
+    public void IncreaseHP(float amount)
+    {
+        currentHP = Mathf.Clamp01(currentHP + amount);
+        OnHPChanged?.Invoke(currentHP);
     }
 
     /// <summary>
