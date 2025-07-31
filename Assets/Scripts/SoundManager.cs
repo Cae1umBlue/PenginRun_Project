@@ -52,11 +52,17 @@ public class SoundManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(Instance);
+            Init();
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+
+    void Init()
+    {
+
     }
 
     public void SFXPlay(SFXType type, AudioClip clip) // 효과음 재생 ex) SFXPlay("Jump", clip) clip은 인스펙터 창에서 직접 넣기 
