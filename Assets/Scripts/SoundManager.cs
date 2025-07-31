@@ -62,10 +62,10 @@ public class SoundManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1) // 씬에 따라 배경음악 변경
     {
-        for(int i =0; i < bgList.Length; i++)
+        for(int i =0; i < bgmList.Length; i++)
         {
-            if(arg0.name == bgList[i].name)
-                BgSoundPlay(bgList[i]);
+            if(arg0.name == bgmList[i].name)
+                BgSoundPlay(bgmList[i]);
         }
     }
 
@@ -82,11 +82,11 @@ public class SoundManager : MonoBehaviour
 
     public void BgSoundPlay(AudioClip clip) // 배경음 재생(재생할 배경음 삽입)
     {
-        bgSound.outputAudioMixerGroup = mixer.FindMatchingGroups("BGM")[0];
-        bgSound.clip = clip; 
-        bgSound.loop = true; // 반복
-        bgSound.volume = 0.1f; // 배경음 볼륨
-        bgSound.Play();
+        bgmPlayer.outputAudioMixerGroup = mixer.FindMatchingGroups("BGM")[0];
+        bgmPlayer.clip = clip; 
+        bgmPlayer.loop = true; // 반복
+        bgmPlayer.volume = 0.1f; // 배경음 볼륨
+        bgmPlayer.Play();
     }
 
 }
