@@ -81,7 +81,9 @@ public class SoundManager : MonoBehaviour
 
         for(int i = 0; i < sfxList.Length; i++)
         {
-
+            sfxPlayers[i] = sfxObject.AddComponent<AudioSource>();
+            sfxPlayers[i].playOnAwake = false;
+            sfxPlayers[i].volume = sfxVolume;
         }
 
 
