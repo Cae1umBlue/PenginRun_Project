@@ -73,6 +73,8 @@ public class SoundManager : MonoBehaviour
         bgmPlayer.loop = true;
         bgmPlayer.volume = bgmVolume;
         bgmPlayer.clip = bgmClip;
+        bgmPlayer.outputAudioMixerGroup = mixer.FindMatchingGroups("BGM")[0];
+
 
         // 효과음 플레이어 초기화
         GameObject sfxObject = new GameObject("SfxPlayer"); // bgm을 재생하는 오브젝트 생성
@@ -84,6 +86,8 @@ public class SoundManager : MonoBehaviour
             sfxPlayers[i] = sfxObject.AddComponent<AudioSource>();
             sfxPlayers[i].playOnAwake = false;
             sfxPlayers[i].volume = sfxVolume;
+            sfxPlayers[i].outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
+
         }
 
 
@@ -100,19 +104,21 @@ public class SoundManager : MonoBehaviour
 
             channelIndex = loopIndex;
             sfxPlayers[loopIndex].clip = sfxList[(int)type];
-            sfxPlayers[loopIndex].outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
             sfxPlayers[loopIndex].Play();
             break;
         }
     }
 
-    public void BgSoundPlay(AudioClip clip) // 배경음 재생(재생할 배경음 삽입)
+    public void BGMPlay(bool isPlay) 
     {
-        bgmPlayer.outputAudioMixerGroup = mixer.FindMatchingGroups("BGM")[0];
-        bgmPlayer.clip = clip; 
-        bgmPlayer.loop = true; // 반복
-        bgmPlayer.volume = 0.1f; // 배경음 볼륨
-        bgmPlayer.Play();
+        if (isPlay)
+        {
+            bgmPlayer.Play();
+        }
+        else
+        {
+            bgmPlayer.Stop();
+        }
     }
 
 }
