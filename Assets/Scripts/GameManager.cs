@@ -1,30 +1,41 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+using System;
 using System.Collections;
-
-// 게임 상태를 나타내는 열거형
-public enum GameState
-{
-    Ready,      // 시작 전 준비 단계 (인트로 UI 노출)
-    Playing,    // 플레이 중
-    GameOver    // 게임 오버
-}
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+
+    // 1) 새로 추가된 게임 스테이트: Intro 단계 포함
+    public enum GameState
+    {
+        Intro,      // 준비 화면 (인트로)
+        Playing,    // 플레이 중
+        GameOver    // 게임 오버
+    }
     public GameState CurrentState { get; private set; }
 
+    // 2) UIManager 등에 전파할 이벤트들
+    public event Action<GameState> OnStateChanged;
+    public event Action<float> OnHPChanged;
+    public event Action<int> OnScoreChanged;
+    public event Action<int> OnHighScoreChanged;
+
+    [Header("난이도 설정")]
     [SerializeField] private float difficultyInterval = 30f;
     [SerializeField] private float speedIncrement = 0.5f;
 
+    [Header("HP 설정")]
+    [SerializeField] private float initialHP = 1f;
+    [SerializeField] private float hpDecreaseSpeed = 0.01f; // 초당 HP 감소량
+
+    private float currentHP;
     private Coroutine difficultyRoutine;
 
     private void Awake()
     {
+        // 싱글톤 패턴
         if (Instance == null)
         {
             Instance = this;
@@ -33,58 +44,91 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
     }
 
     private void Start()
     {
-        // 준비 단계로 진입
-        CurrentState = GameState.Ready;
-        Time.timeScale = 0f;
+        // 초기 스테이트: Intro
+        SetState(GameState.Intro);
 
-        // 인트로 UI만 노출
-        UIManager.Instance.ShowIntroUI();
+        // ScoreManager 이벤트 연결 → GameManager 이벤트로 중계
+        ScoreManager.Instance.OnScoreChanged += s => OnScoreChanged?.Invoke(s);
+        ScoreManager.Instance.OnHighScoreChanged += hs => OnHighScoreChanged?.Invoke(hs);
+    }
+
+    private void Update()
+    {
+        // 3) Playing 상태에서만 HP 감소 처리
+        if (CurrentState != GameState.Playing) return;
+
+        currentHP -= hpDecreaseSpeed * Time.deltaTime;
+        currentHP = Mathf.Clamp01(currentHP);
+        OnHPChanged?.Invoke(currentHP);
+
+        if (currentHP <= 0f)
+            GameOver();
     }
 
     /// <summary>
-    /// 인트로 Start 버튼에 연결
+    /// Start 버튼 눌렀을 때 호출
     /// </summary>
     public void StartGame()
     {
-        // UI 전환
-        UIManager.Instance.ShowInGameUI();
-
         // 점수 초기화
         ScoreManager.Instance.ResetScore();
 
-        // 실제 플레이 상태로 진입
-        CurrentState = GameState.Playing;
+        // HP 초기화 및 알림
+        currentHP = initialHP;
+        OnHPChanged?.Invoke(currentHP);
+
+        // 시간 흐름 복구
         Time.timeScale = 1f;
 
-        // 난이도 상승 코루틴 시작
+        // 난이도 상승 코루틴 재시작
+        if (difficultyRoutine != null)
+            StopCoroutine(difficultyRoutine);
         difficultyRoutine = StartCoroutine(DifficultyCoroutine());
+
+        // 스테이트 전환
+        SetState(GameState.Playing);
     }
 
+    /// <summary>
+    /// 게임 오버 처리
+    /// </summary>
     public void GameOver()
     {
         if (CurrentState != GameState.Playing) return;
 
-        CurrentState = GameState.GameOver;
-        Time.timeScale = 0f;
-
+        // 난이도 코루틴 정지
         if (difficultyRoutine != null)
             StopCoroutine(difficultyRoutine);
 
+        // 최고 점수 저장 및 알림
         ScoreManager.Instance.SaveHighScore();
-        UIManager.Instance.ShowGameOverUI();
+        OnHighScoreChanged?.Invoke(ScoreManager.Instance.HighScore);
+
+        // 시간 멈춤
+        Time.timeScale = 0f;
+
+        // 스테이트 전환
+        SetState(GameState.GameOver);
     }
 
+    /// <summary>
+    /// 재시작 버튼 눌렀을 때 호출
+    /// </summary>
     public void RestartGame()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    /// <summary>
+    /// 일정 시간마다 난이도 상승
+    /// </summary>
     private IEnumerator DifficultyCoroutine()
     {
         while (CurrentState == GameState.Playing)
@@ -94,19 +138,33 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 실제 난이도 상승 처리 (플레이어 속도 증가)
+    /// </summary>
     public void IncreaseDifficulty()
     {
         if (PlayerController.Instance != null)
             PlayerController.Instance.moveSpeed += speedIncrement;
     }
 
+    /// <summary>
+    /// 앱/에디터 종료
+    /// </summary>
     public void QuitGame()
     {
-        Debug.Log("게임 종료 시도");
 #if UNITY_EDITOR
-        EditorApplication.isPlaying = false;
+        UnityEditor.EditorApplication.isPlaying = false;
 #else
         Application.Quit();
 #endif
+    }
+
+    /// <summary>
+    /// 내부용: 상태 변경 및 이벤트 호출
+    /// </summary>
+    private void SetState(GameState newState)
+    {
+        CurrentState = newState;
+        OnStateChanged?.Invoke(newState);
     }
 }

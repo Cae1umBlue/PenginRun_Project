@@ -1,234 +1,166 @@
-using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-
-
+using static GameManager;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
+
+    [Header("UI References")]
     public Button quitButton;
     public Text scoreText;
     public Text highScoreText;
     public Image hpBarImage;
 
+    public GameObject introUI;
+    public GameObject inGameUI;
+    public GameObject gameOverUI;
+
+    [Header("Button Effects")]
+    public ButtonEffect[] buttonEffects;
+    public float revertDelay = 0.5f;
+
     private bool isGameOver = false;
-
     private float currentHP = 1f;
-    private float hpDecreaseSpeed = 0.01f; // 초당 감소값
+    private float hpDecreaseSpeed = 0.01f;
 
-    private int currentScore = 0;
-    private int highScore = 0;
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
 
-    public static event Action OnGameRestarted;
+    private void Start()
+    {
+        // 1) 초기 UI 세팅
+        HideAllUI();
+        ShowIntroUI();
+        Time.timeScale = 0f;
 
-    public Text gameOverScoreText;
-    public Text gameOverHighScoreText;
-    public GameObject newHighScoreText;
+        // 2) Score 이벤트 구독 (Null 체크)
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.OnScoreChanged += UpdateScoreUI;
+            ScoreManager.Instance.OnHighScoreChanged += UpdateHighScoreUI;
 
+            // 초기값 표시
+            UpdateScoreUI(ScoreManager.Instance.CurrentScore);
+            UpdateHighScoreUI(ScoreManager.Instance.HighScore);
+        }
+
+        // 3) Quit 버튼
+        if (quitButton != null)
+            quitButton.onClick.AddListener(GameManager.Instance.QuitGame);
+
+        // 4) 버튼 이펙트
+        foreach (var e in buttonEffects)
+        {
+            if (e.button == null || e.targetImage == null || e.newSprite == null) continue;
+            var original = e.targetImage.sprite;
+            e.button.onClick.AddListener(() =>
+            {
+                e.targetImage.sprite = e.newSprite;
+                StartCoroutine(RevertAfterDelay(e.targetImage, original));
+            });
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.OnScoreChanged -= UpdateScoreUI;
+            ScoreManager.Instance.OnHighScoreChanged -= UpdateHighScoreUI;
+        }
+    }
+
+    // 인트로 UI의 Start 버튼에 연결
     public void OnStartButtonPressed()
     {
+        HideAllUI();
+        ShowInGameUI();
 
-        introUI.SetActive(false);   // 인트로 숨김
-        inGameUI.SetActive(true);   // 인게임 UI 표시
+        // GameManager 쪽에 Ready→Playing 전환 로직을 구현하세요
+        GameManager.Instance.StartGame();
         Time.timeScale = 1f;
     }
 
-    [System.Serializable]
+    private void Update()
+    {
+        // Playing 상태에서만 HP 감소
+        if (GameManager.Instance.CurrentState != GameState.Playing) return;
 
+        currentHP -= hpDecreaseSpeed * Time.deltaTime;
+        currentHP = Mathf.Max(currentHP, 0f);
+        UpdateHPUI(currentHP);
+
+        if (currentHP <= 0f && !isGameOver)
+        {
+            isGameOver = true;
+            HideAllUI();
+            ShowGameOverUI();
+            Time.timeScale = 0f;
+        }
+    }
+
+    // UI 갱신 메서드들
+    public void UpdateScoreUI(int score)
+    {
+        if (scoreText != null)
+            scoreText.text = $"점수: {score}";
+    }
+
+    public void UpdateHighScoreUI(int highScore)
+    {
+        if (highScoreText != null)
+            highScoreText.text = $"최고점: {highScore}";
+    }
+
+    public void UpdateHPUI(float hpRatio)
+    {
+        if (hpBarImage != null)
+            hpBarImage.fillAmount = Mathf.Clamp01(hpRatio);
+    }
+
+    private IEnumerator RevertAfterDelay(Image img, Sprite orig)
+    {
+        yield return new WaitForSeconds(revertDelay);
+        if (img != null)
+            img.sprite = orig;
+    }
+
+    // UI 토글 헬퍼
+    private void HideAllUI()
+    {
+        introUI?.SetActive(false);
+        inGameUI?.SetActive(false);
+        gameOverUI?.SetActive(false);
+    }
+
+    public void ShowIntroUI()
+    {
+        HideAllUI();
+        introUI?.SetActive(true);
+    }
+
+    public void ShowInGameUI()
+    {
+        HideAllUI();
+        inGameUI?.SetActive(true);
+    }
+
+    public void ShowGameOverUI()
+    {
+        HideAllUI();
+        gameOverUI?.SetActive(true);
+    }
+
+    [System.Serializable]
     public class ButtonEffect
     {
         public Button button;
         public Image targetImage;
         public Sprite newSprite;
     }
-    public ButtonEffect[] buttonEffects;
-    public float revertDelay = 0.5f;
-
-
-    public GameObject introUI;
-    public GameObject inGameUI;
-    public GameObject gameOverUI;
-
-    private void Awake()
-    {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
-    }
-
-    private void Start()
-    {
-
-
-        quitButton.onClick.AddListener(QuitGame);
-
-        foreach (var effect in buttonEffects)
-        {
-            Sprite original = effect.targetImage.sprite;
-
-            // 클로저 방지용 로컬 복사
-            Button localButton = effect.button;
-            Image localImage = effect.targetImage;
-            Sprite newSprite = effect.newSprite;
-
-            localButton.onClick.AddListener(() =>
-            {
-                localImage.sprite = newSprite;
-                StartCoroutine(RevertAfterDelay(localImage, original));
-            });
-        }
-    }
-
-    public void UpdateScoreUI(int score)
-    {
-        if (scoreText != null)
-        {
-            scoreText.text = "점수: " + score.ToString();
-        }
-    }
-
-    public void UpdateHighScoreUI(int highScore)
-    {
-        if (highScoreText != null)
-            highScoreText.text = "최고점: " + highScore;
-    }
-
-    IEnumerator RevertAfterDelay(Image image, Sprite originalSprite)
-    {
-        yield return new WaitForSeconds(revertDelay);
-        image.sprite = originalSprite;
-    }
-
-    public void QuitGame()
-    {
-        Debug.Log("게임 종료 시도");
-
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false; //에디터에서 종료 누를 시
-#else
-        Application.Quit(); //실제 빌드에서 종료 누를시
-#endif
-    }
-
-    // UI 전환 제어
-
-   
-
-    public void ShowUI(GameObject targetUI)
-    {
-       
-        targetUI.SetActive(true);
-        targetUI.transform.SetAsLastSibling();
-    }
-
-    public void UpdateHPUI(float hpRatio)
-    {
-        hpRatio = Mathf.Clamp01(hpRatio); // 0 ~ 1 사이로 제한
-        if (hpBarImage != null)
-            hpBarImage.fillAmount = hpRatio;
-    }
-
-    private void Update()
-    {
-        if (!isGameOver)
-        {
-            ApplyDamage(hpDecreaseSpeed * Time.deltaTime);
-        }
-    }
-
-    // 체력관리
-
-    public void ApplyDamage(float amount)
-    {
-        if (isGameOver) return;
-
-        currentHP -= amount;
-        currentHP = Mathf.Clamp(currentHP, 0f, 1f);
-
-        UpdateHPUI(currentHP);
-
-        if (currentHP <= 0f)
-        {
-            HandleGameOver();
-        }
-    }
-
-    public void Heal(float amount)
-    {
-        if (isGameOver) return;
-
-        currentHP += amount;
-        currentHP = Mathf.Clamp(currentHP, 0f, 1f);
-
-        UpdateHPUI(currentHP);
-    }
-    private void HandleGameOver()
-    {
-        if (isGameOver) return;
-
-        isGameOver = true;
-        inGameUI.SetActive(false);
-        gameOverUI.SetActive(true);
-        Time.timeScale = 0f;
-
-        // 게임 오버 UI 점수 표시
-        if (gameOverScoreText != null)
-            gameOverScoreText.text = "점수: " + currentScore.ToString();
-
-        if (gameOverHighScoreText != null)
-            gameOverHighScoreText.text = "최고점: " + highScore.ToString();
-
-        // 최고점 갱신 여부 확인
-        bool isNewRecord = currentScore > highScore;
-        if (isNewRecord)
-        {
-            highScore = currentScore;
-            UpdateHighScoreUI(highScore);
-        }
-
-        // 최고점 갱신 텍스트 표시 여부
-        if (newHighScoreText != null)
-            newHighScoreText.SetActive(isNewRecord);
-
-    }
-    public void OnRestartButtonPressed()
-    {
-        // 최고점 업데이트
-        if (currentScore > highScore)
-        {
-            highScore = currentScore;
-            UpdateHighScoreUI(highScore);
-        }
-
-        // 점수 초기화
-        currentScore = 0;
-        UpdateScoreUI(currentScore);
-
-        // 체력 초기화
-        currentHP = 1f;
-        isGameOver = false;
-        UpdateHPUI(currentHP);
-
-        // UI 전환
-        gameOverUI.SetActive(false);
-        inGameUI.SetActive(true);
-
-        // 시간 재개
-        Time.timeScale = 1f;
-
-
-    }
-
-    public void AddScore(int amount)
-    {
-        currentScore += amount;
-        UpdateScoreUI(currentScore);
-    }
-
-    public void ShowIntroUI() => ShowUI(introUI);
-    public void ShowInGameUI() => ShowUI(inGameUI);
-    public void ShowGameOverUI() => ShowUI(gameOverUI);
 }

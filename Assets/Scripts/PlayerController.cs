@@ -36,6 +36,10 @@ public class PlayerController : MonoBehaviour
     private Vector2 OriginalColliderOffset;
     public float JumpColliderYOffset = 0.5f; // 점프 시 올릴 y값
 
+    [Header("효과음 클립")]
+    public AudioClip jumpClip;
+    public AudioClip slideClip;
+
     // 싱글톤 인스턴스 생성
     private void Awake()
     {
@@ -66,10 +70,18 @@ public class PlayerController : MonoBehaviour
     {
         MoveForward();
 
-        // Block 태그 오브젝트에 닿아있거나, 이중점프 횟수 미만일 때만 점프
-        if (Input.GetKeyDown(KeyCode.Space) && (IsTouchingBlock || JumpCount < MaxJumpCount))
+        // Block 태그 오브젝트와 접촉 중일 때만 점프 가능
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            Jump();
+            if (IsTouchingBlock)
+            {
+                JumpCount = 0; // 바닥에 닿았으면 점프 카운트 리셋
+                Jump();
+            }
+            else if (JumpCount > 0 && JumpCount < MaxJumpCount)
+            {
+                Jump(); // 공중에서만 가능한 더블 점프
+            }
         }
 
         Slide();
@@ -92,6 +104,10 @@ public class PlayerController : MonoBehaviour
             Animator.SetTrigger("Jump");
             JumpCount++;
 
+            // 점프 효과음 재생
+            if (jumpClip != null)
+                SoundManager.Instance.SFXPlay("Jump", jumpClip);
+
             // 점프 시 Collider의 y 오프셋을 올림
             if (PlayerCollider != null)
             {
@@ -111,6 +127,10 @@ public class PlayerController : MonoBehaviour
             {
                 IsSliding = true;
                 Animator.SetBool("Slide", true);
+
+                // 슬라이드 효과음 재생
+                if (slideClip != null)
+                    SoundManager.Instance.SFXPlay("Slide", slideClip);
             }
         }
         else
@@ -187,6 +207,10 @@ public class PlayerController : MonoBehaviour
         if (currentHP <= 0)
         {
             // 게임오버 애니메이션 및 게임오버 UI 활성화?
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.GameOver();
+            }
         }
     }
 
@@ -194,45 +218,5 @@ public class PlayerController : MonoBehaviour
     public void Heal(int amount)
     {
         currentHP += amount;
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        // 아이템 오브젝트와 충돌 시
-        Item item = other.GetComponent<Item>();
-        if (item != null)
-        {
-            switch (item.itemType)
-            {
-                case ItemType.Score:
-                    ScoreManager.Instance.AddScore(item.scoreValue);
-                    break;
-
-                case ItemType.Heal:
-                    Heal(item.healAmount);
-                    UIManager.Instance.UpdateHPUI((float)currentHP / 100f); // 예시: 최대 체력 100 기준
-                    break;
-
-                case ItemType.SpeedUp:
-                    moveSpeed += item.speedAmount;
-                    StartCoroutine(ResetSpeedAfterDuration(item.speedAmount, item.effectDuration));
-                    break;
-
-                case ItemType.SlowDown:
-                    moveSpeed -= item.speedAmount;
-                    StartCoroutine(ResetSpeedAfterDuration(-item.speedAmount, item.effectDuration));
-                    break;
-            }
-
-            // 아이템 오브젝트 파괴
-            Destroy(item.gameObject);
-        }
-    }
-
-    // 일정 시간 후 속도 원상복구 코루틴
-    private IEnumerator ResetSpeedAfterDuration(float amount, float duration)
-    {
-        yield return new WaitForSeconds(duration);
-        moveSpeed -= amount;
     }
 }
