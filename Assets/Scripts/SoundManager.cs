@@ -73,6 +73,17 @@ public class SoundManager : MonoBehaviour
         bgmPlayer.volume = bgmVolume;
         bgmPlayer.clip = bgmClip;
 
+        // 효과음 플레이어 초기화
+        GameObject sfxObject = new GameObject("SfxPlayer"); // bgm을 재생하는 오브젝트 생성
+        sfxObject.transform.parent = transform;
+        sfxPlayers = new AudioSource[channels];
+
+        for(int i = 0; i < sfxList.Length; i++)
+        {
+
+        }
+
+
     }
 
     public void SFXPlay(SFXType type, AudioClip clip) // 효과음 재생 ex) SFXPlay("Jump", clip) clip은 인스펙터 창에서 직접 넣기 
