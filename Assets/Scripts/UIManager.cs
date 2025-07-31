@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
 
     public Text gameOverScoreText;
     public Text gameOverHighScoreText;
-
+    public GameObject newHighScoreText;
 
     public void OnStartButtonPressed()
     {
@@ -180,6 +180,18 @@ public class UIManager : MonoBehaviour
 
         if (gameOverHighScoreText != null)
             gameOverHighScoreText.text = "최고점: " + highScore.ToString();
+
+        // 최고점 갱신 여부 확인
+        bool isNewRecord = currentScore > highScore;
+        if (isNewRecord)
+        {
+            highScore = currentScore;
+            UpdateHighScoreUI(highScore);
+        }
+
+        // 최고점 갱신 텍스트 표시 여부
+        if (newHighScoreText != null)
+            newHighScoreText.SetActive(isNewRecord);
 
     }
     public void OnRestartButtonPressed()
