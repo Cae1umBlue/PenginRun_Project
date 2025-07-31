@@ -89,14 +89,21 @@ public class SoundManager : MonoBehaviour
 
     }
 
-    public void SFXPlay(SFXType type, AudioClip clip) // 효과음 재생 ex) SFXPlay("Jump", clip) clip은 인스펙터 창에서 직접 넣기 
+    public void SFXPlay(SFXType type) // 효과음 재생 ex) SFXPlay("Jump", clip) clip은 인스펙터 창에서 직접 넣기 
     {
-        AudioSource audioSource = go.AddComponent<AudioSource>(); // 오브젝트에 AudioSource 컴포넌트 추가
-        audioSource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
-        audioSource.clip = clip;
-        audioSource.Play();
+        for (int i = 0; i < sfxList.Length; i++)
+        {
+            int loopIndex = (i + channelIndex) % sfxPlayers.Length;
 
-        Destroy(go, clip.length); // 효과음이 끝나면 소리 오브젝트 삭제
+            if (sfxPlayers[loopIndex].isPlaying)
+                continue;
+
+            channelIndex = loopIndex;
+            sfxPlayers[loopIndex].clip = sfxList[(int)type];
+            sfxPlayers[loopIndex].outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
+            sfxPlayers[loopIndex].Play();
+            break;
+        }
     }
 
     public void BgSoundPlay(AudioClip clip) // 배경음 재생(재생할 배경음 삽입)
