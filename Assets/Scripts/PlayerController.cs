@@ -28,9 +28,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D Rb;
     private Animator Animator;
 
-    // 플레이어 임시 체력 (충돌 테스트)
-    public int currentHP = 100;
-
     // Collider 관련
     private Collider2D PlayerCollider;
     private Vector2 OriginalColliderOffset;
@@ -178,7 +175,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Obstacle 장애물과 플레이어가 부딪칠 경우 1의 대미지를 받고, HitTime 애니메이션이 실행됨
+    // Obstacle 장애물과 플레이어가 부딪칠 경우 대미지를 받고, HitTime 애니메이션이 실행됨
     public void TakeDamage()
     {
         // 무적 상태라면 대미지 무시
@@ -187,15 +184,9 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        // 피격 처리
-        currentHP -= 20;
-        HitTime = Time.time; // 피격 시간 기록
-
-        // 체력이 -1 이하로 내려가는 경우 방지
-        if (currentHP < -1)
-        {
-            currentHP = -1;
-        }
+        // GameManager에 체력 감소 요청
+        GameManager.Instance.DecreaseHP();
+        HitTime = Time.time;
 
         // 피격 애니메이션 트리거
         if (Animator != null)
@@ -203,20 +194,11 @@ public class PlayerController : MonoBehaviour
             Animator.SetTrigger("HitTime");
         }
 
-        // 체력이 0 이하라면 게임오버 처리
-        if (currentHP <= 0)
-        {
-            // 게임오버 애니메이션 및 게임오버 UI 활성화?
-            if (GameManager.Instance != null)
-            {
-                GameManager.Instance.GameOver();
-            }
-        }
+        // 게임오버 관리도 GameManager에서 진행
+        //    if (GameManager.Instance.CurrentHP <= 0)
+        //    {
+        //        GameManager.Instance.GameOver();
+        //    }
     }
 
-    // 체력 회복용 메서드. Heal 아이템 획득 시 호출됨.
-    public void Heal(int amount)
-    {
-        currentHP += amount;
-    }
 }

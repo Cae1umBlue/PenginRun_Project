@@ -2,43 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 스폰 포인트 하나를 정의
-[System.Serializable]
-public class SpawnPoint
-{
-    public Transform point;      // 씬에 배치해 둔 빈 오브젝트
-    public ItemType itemType;    // 이 지점에서 생성할 아이템 타입
-}
-
 public class ItemSpawner : MonoBehaviour
 {
-    [SerializeField] private SpawnPoint[] spawnPoints;        // 스폰 지점 목록
-    [SerializeField] private GameObject scoreItemPrefab;      // 각 타입별 프리팹
+    [Header("스폰 포인트 컨테이너")]
+    [Tooltip("Score 아이템들의 포지션을 자식 오브젝트로 가진 부모")]
+    [SerializeField] private Transform scorePointsParent;
+    [Tooltip("Heal 아이템들의 포지션을 자식 오브젝트로 가진 부모")]
+    [SerializeField] private Transform healPointsParent;
+    [Tooltip("SpeedUp 아이템들의 포지션을 자식 오브젝트로 가진 부모")]
+    [SerializeField] private Transform speedUpPointsParent;
+    [Tooltip("SlowDown 아이템들의 포지션을 자식 오브젝트로 가진 부모")]
+    [SerializeField] private Transform slowDownPointsParent;
+
+    [Header("아이템 프리팹")]
+    [SerializeField] private GameObject scoreItemPrefab;
     [SerializeField] private GameObject healItemPrefab;
     [SerializeField] private GameObject speedUpItemPrefab;
     [SerializeField] private GameObject slowDownItemPrefab;
 
     private void Start()
     {
-        SpawnAllItems();
+        SpawnFromParent(scorePointsParent, scoreItemPrefab);
+        SpawnFromParent(healPointsParent, healItemPrefab);
+        SpawnFromParent(speedUpPointsParent, speedUpItemPrefab);
+        SpawnFromParent(slowDownPointsParent, slowDownItemPrefab);
     }
 
-    // 씬 로드 직후 한 번만 호출해서 아이템 배치
-    private void SpawnAllItems()
+    /// <summary>
+    /// 지정된 부모(컨테이너)의 모든 자식 위치에 prefab을 Instantiate 합니다.
+    /// </summary>
+    private void SpawnFromParent(Transform parent, GameObject prefab)
     {
-        foreach (var sp in spawnPoints)
-        {
-            GameObject prefab = null;
-            switch (sp.itemType)
-            {
-                case ItemType.Score: prefab = scoreItemPrefab; break;
-                case ItemType.Heal: prefab = healItemPrefab; break;
-                case ItemType.SpeedUp: prefab = speedUpItemPrefab; break;
-                case ItemType.SlowDown: prefab = slowDownItemPrefab; break;
-            }
+        if (parent == null || prefab == null)
+            return;
 
-            if (prefab != null)
-                Instantiate(prefab, sp.point.position, Quaternion.identity, transform);
+        foreach (Transform point in parent)
+        {
+            Instantiate(prefab, point.position, Quaternion.identity, transform);
         }
     }
 }
