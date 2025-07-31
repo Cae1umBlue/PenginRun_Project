@@ -23,6 +23,9 @@ public class UIManager : MonoBehaviour
 
     public static event Action OnGameRestarted;
 
+    public Text gameOverScoreText;
+    public Text gameOverHighScoreText;
+
 
     public void OnStartButtonPressed()
     {
@@ -170,6 +173,14 @@ public class UIManager : MonoBehaviour
         inGameUI.SetActive(false);
         gameOverUI.SetActive(true);
         Time.timeScale = 0f;
+
+        // 게임 오버 UI 점수 표시
+        if (gameOverScoreText != null)
+            gameOverScoreText.text = "점수: " + currentScore.ToString();
+
+        if (gameOverHighScoreText != null)
+            gameOverHighScoreText.text = "최고점: " + highScore.ToString();
+
     }
     public void OnRestartButtonPressed()
     {
