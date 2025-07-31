@@ -32,9 +32,18 @@ public enum SFXType
 
 public class SoundManager : MonoBehaviour
 {
-    public AudioMixer mixer;
-    public AudioSource bgSound;
-    public AudioClip[] bgList;
+    [SerializeField] private AudioMixer mixer;
+
+    [Header("#BGM")]
+    [SerializeField] private AudioSource bgmPlayer;
+    [SerializeField] private AudioClip[] bgmList;
+    public float bgmVolume;
+
+    [Header("#SFX")]
+    [SerializeField] private AudioSource sfxPlayer;
+    [SerializeField] private AudioClip[] sfxList;
+    public float sfxVolume;
+
     public static SoundManager Instance;
 
     private void Awake()
