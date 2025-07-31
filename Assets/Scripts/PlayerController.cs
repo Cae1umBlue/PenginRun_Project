@@ -37,10 +37,6 @@ public class PlayerController : MonoBehaviour
     public float InvincibleDuration = 1.0f;
     public float JumpColliderYOffset = 0.5f;
 
-    [Header("효과음 클립")]
-    public AudioClip jumpClip;
-    public AudioClip slideClip;
-
     private void Awake()
     {
         if (Instance == null)
@@ -104,8 +100,8 @@ public class PlayerController : MonoBehaviour
             Animator?.SetTrigger("Jump");
             JumpCount++;
 
-            if (jumpClip != null)
-                SoundManager.Instance.SFXPlay("Jump", jumpClip);
+            // 효과음 재생 (AudioClip 제거, SFXType 사용)
+            SoundManager.Instance.SFXPlay(SFXType.Jump);
 
             if (PlayerCollider != null)
             {
@@ -133,8 +129,8 @@ public class PlayerController : MonoBehaviour
         IsSliding = true;
         Animator?.SetBool("Slide", true);
 
-        if (slideClip != null)
-            SoundManager.Instance.SFXPlay("Slide", slideClip);
+        // 효과음 재생 (AudioClip 제거, SFXType 사용)
+        SoundManager.Instance.SFXPlay(SFXType.Slide);
 
         if (BoxCollider != null)
         {
