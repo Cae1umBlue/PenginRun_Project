@@ -187,9 +187,9 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        // UIManager에 체력 감소 요청
-        UIManager.Instance.DecreaseHP(0.2f);
-        HitTime = Time.time; // 피격 시간 기록
+        // UIManager에 체력 감소 요청 (감소 체력값은 UIManager에서 관리)
+        UIManager.Instance.DecreaseHP();
+        HitTime = Time.time;
 
         // 피격 애니메이션 트리거
         if (Animator != null)
