@@ -36,16 +36,16 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioMixer mixer;
 
     [Header("BGM")]
-    [SerializeField] private AudioSource bgmPlayer;
     [SerializeField] private AudioClip bgmClip;
+    private AudioSource bgmPlayer;
     public float bgmVolume;
 
     [Header("SFX")]
-    [SerializeField] private AudioSource[] sfxPlayers;
     [SerializeField] private AudioClip[] sfxList;
+    private AudioSource[] sfxPlayers;
     public int channels;
     public float sfxVolume;
-    int channelIndex;
+    private int channelIndex;
 
     public static SoundManager Instance;
 
