@@ -19,7 +19,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text gameOverScoreText;
     [SerializeField] private Text gameOverHighScoreText;
 
-    [SerializeField] private Button restartButton; 
+    [SerializeField] private Button restartButton;
+
+    [SerializeField] private GameObject newHighScoreText; // 신기록 갱신
+    [SerializeField] private GameObject fireworksEffect; // 폭죽 이펙트
 
     [Header("Button Effects")]
     [SerializeField] private ButtonEffect[] buttonEffects;
@@ -107,6 +110,12 @@ public class UIManager : MonoBehaviour
                 gameOverUI.SetActive(true);
                 Time.timeScale = 0f;
 
+                bool isNewHigh = ScoreManager.Instance.CurrentScore >= ScoreManager.Instance.HighScore;
+                newHighScoreText?.SetActive(isNewHigh);
+
+                if (fireworksEffect != null)
+                    fireworksEffect.SetActive(isNewHigh); //  신기록일 때만 폭죽 ON
+
                 if (ScoreManager.Instance != null)
                 {
                     gameOverScoreText.text = $"이번 게임 점수: {ScoreManager.Instance.CurrentScore}";
@@ -168,5 +177,8 @@ public class UIManager : MonoBehaviour
     public void OnRestartButtonPressed()
     {
         GameManager.Instance.RestartGame();
+
+        if (fireworksEffect != null)
+            fireworksEffect.SetActive(false);
     }
 }
