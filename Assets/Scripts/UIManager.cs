@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -16,6 +17,11 @@ public class UIManager : MonoBehaviour
 
     private float currentHP = 1f;
     private float hpDecreaseSpeed = 0.01f; // 초당 감소값
+
+    private int currentScore = 0;
+    private int highScore = 0;
+
+    public static event Action OnGameRestarted;
 
 
     public void OnStartButtonPressed()
@@ -124,21 +130,80 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        currentHP -= hpDecreaseSpeed * Time.deltaTime;
-        currentHP = Mathf.Max(currentHP, 0f);
-
-        UpdateHPUI(currentHP);
-
-        if (currentHP <= 0f && !isGameOver)
+        if (!isGameOver)
         {
-            isGameOver = true;
-            inGameUI.SetActive(false);     // 인게임 UI 숨김
-            gameOverUI.SetActive(true);    // 게임오버 UI 표시
-            Time.timeScale = 0f;           // 게임 정지
+            ApplyDamage(hpDecreaseSpeed * Time.deltaTime);
         }
     }
 
+    // 체력관리
 
+    public void ApplyDamage(float amount)
+    {
+        if (isGameOver) return;
+
+        currentHP -= amount;
+        currentHP = Mathf.Clamp(currentHP, 0f, 1f);
+
+        UpdateHPUI(currentHP);
+
+        if (currentHP <= 0f)
+        {
+            HandleGameOver();
+        }
+    }
+
+    public void Heal(float amount)
+    {
+        if (isGameOver) return;
+
+        currentHP += amount;
+        currentHP = Mathf.Clamp(currentHP, 0f, 1f);
+
+        UpdateHPUI(currentHP);
+    }
+    private void HandleGameOver()
+    {
+        if (isGameOver) return;
+
+        isGameOver = true;
+        inGameUI.SetActive(false);
+        gameOverUI.SetActive(true);
+        Time.timeScale = 0f;
+    }
+    public void OnRestartButtonPressed()
+    {
+        // 최고점 업데이트
+        if (currentScore > highScore)
+        {
+            highScore = currentScore;
+            UpdateHighScoreUI(highScore);
+        }
+
+        // 점수 초기화
+        currentScore = 0;
+        UpdateScoreUI(currentScore);
+
+        // 체력 초기화
+        currentHP = 1f;
+        isGameOver = false;
+        UpdateHPUI(currentHP);
+
+        // UI 전환
+        gameOverUI.SetActive(false);
+        inGameUI.SetActive(true);
+
+        // 시간 재개
+        Time.timeScale = 1f;
+
+
+    }
+
+    public void AddScore(int amount)
+    {
+        currentScore += amount;
+        UpdateScoreUI(currentScore);
+    }
 
     public void ShowIntroUI() => ShowUI(introUI);
     public void ShowInGameUI() => ShowUI(inGameUI);
