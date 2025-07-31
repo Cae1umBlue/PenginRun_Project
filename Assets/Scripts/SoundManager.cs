@@ -89,8 +89,6 @@ public class SoundManager : MonoBehaviour
             sfxPlayers[i].outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
 
         }
-
-
     }
 
     public void SFXPlay(SFXType type) // 효과음 재생 ex) SFXPlay("Jump", clip) clip은 인스펙터 창에서 직접 넣기 
