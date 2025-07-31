@@ -16,6 +16,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject inGameUI;
     [SerializeField] private GameObject gameOverUI;
 
+    [SerializeField] private Text gameOverScoreText;
+    [SerializeField] private Text gameOverHighScoreText;
+
+    [SerializeField] private Button restartButton; 
+
     [Header("Button Effects")]
     [SerializeField] private ButtonEffect[] buttonEffects;
     [SerializeField] private float revertDelay = 0.5f;
@@ -28,6 +33,8 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        restartButton?.onClick.AddListener(OnRestartButtonPressed);
+
         // 1) 초기 UI 설정
         HideAllUI();
         introUI.SetActive(true);
@@ -99,6 +106,12 @@ public class UIManager : MonoBehaviour
             case GameManager.GameState.GameOver:
                 gameOverUI.SetActive(true);
                 Time.timeScale = 0f;
+
+                if (ScoreManager.Instance != null)
+                {
+                    gameOverScoreText.text = $"이번 게임 점수: {ScoreManager.Instance.CurrentScore}";
+                    gameOverHighScoreText.text = $"최고 점수: {ScoreManager.Instance.HighScore}";
+                }
                 break;
         }
     }
@@ -150,5 +163,18 @@ public class UIManager : MonoBehaviour
         public Button button;
         public Image targetImage;
         public Sprite newSprite;
+    }
+
+    public void OnRestartButtonPressed()
+    {
+        // UI 전환
+        gameOverUI.SetActive(false);
+        inGameUI.SetActive(true);
+
+        // 게임 상태 재시작
+        GameManager.Instance.StartGame();  // 상태를 Playing으로 전환
+
+        // 시간 재개
+        Time.timeScale = 1f;
     }
 }
