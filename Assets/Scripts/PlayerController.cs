@@ -203,4 +203,9 @@ public class PlayerController : MonoBehaviour
         //        GameManager.Instance.GameOver();
         //    }
     }
+
+    public void Heal(int amount)
+    {
+        currentHP = currentHP + amount;
+    }
 }
