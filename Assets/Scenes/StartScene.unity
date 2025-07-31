@@ -5716,7 +5716,7 @@ MonoBehaviour:
   InvincibleDuration: 1
   currentHP: 100
   JumpColliderYOffset: 0.7
-  jumpClip: {fileID: 8300000, guid: 98c7dcccc8de2c346a2fba68ec8d1839, type: 3}
+  jumpClip: {fileID: 8300000, guid: 959d86561c2f88346abe20196d133bc8, type: 3}
   slideClip: {fileID: 8300000, guid: 79e6eb5146f41374ca90a2b83d4a3f87, type: 3}
 --- !u!212 &1802049415
 SpriteRenderer:
