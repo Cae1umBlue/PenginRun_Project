@@ -39476,11 +39476,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: 97579a5e58e3c3c499257038655e8c28, type: 2}
-  bgmClip: {fileID: 0}
-  bgmVolume: 0
-  sfxList: []
-  channels: 0
-  sfxVolume: 0
+  bgmClip: {fileID: 8300000, guid: 779971d400cff284093e5db73c356c6b, type: 3}
+  bgmVolume: 0.5
+  sfxList:
+  - {fileID: 8300000, guid: 959d86561c2f88346abe20196d133bc8, type: 3}
+  - {fileID: 8300000, guid: 79e6eb5146f41374ca90a2b83d4a3f87, type: 3}
+  - {fileID: 8300000, guid: 98c7dcccc8de2c346a2fba68ec8d1839, type: 3}
+  channels: 10
+  sfxVolume: 0.7
 --- !u!4 &1987153999
 Transform:
   m_ObjectHideFlags: 0
