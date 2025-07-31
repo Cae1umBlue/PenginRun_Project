@@ -43,6 +43,7 @@ public class SoundManager : MonoBehaviour
     [Header("#SFX")]
     [SerializeField] private AudioSource[] sfxPlayers;
     [SerializeField] private AudioClip[] sfxList;
+    public int channels;
     public float sfxVolume;
 
     public static SoundManager Instance;
