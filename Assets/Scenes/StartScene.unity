@@ -723,7 +723,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.0020905}
+  m_AnchoredPosition: {x: 0, y: 0.011021}
   m_SizeDelta: {x: 1920, y: 1080.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &509997217
@@ -1534,14 +1534,13 @@ MonoBehaviour:
   scoreText: {fileID: 1679255916}
   highScoreText: {fileID: 1282847615}
   hpBarImage: {fileID: 1851612884}
-  gameOverScoreText: {fileID: 0}
-  gameOverHighScoreText: {fileID: 0}
-  newHighScoreText: {fileID: 0}
-  buttonEffects: []
-  revertDelay: 0.5
   introUI: {fileID: 1388259999}
   inGameUI: {fileID: 996958683}
   gameOverUI: {fileID: 970322211}
+  gameOverScoreText: {fileID: 1119227515}
+  gameOverHighScoreText: {fileID: 395237015}
+  buttonEffects: []
+  revertDelay: 0.5
 --- !u!1 &550593272
 GameObject:
   m_ObjectHideFlags: 0
@@ -2402,8 +2401,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 11.2163}
-  m_SizeDelta: {x: 1920, y: 1057.7715}
+  m_AnchoredPosition: {x: 0, y: 0.013079}
+  m_SizeDelta: {x: 1920, y: 1080.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1149367931
 MonoBehaviour:
@@ -2640,7 +2639,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ae39237aa3d3d4c939468c2f592203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoints: []
+  scorePointsParent: {fileID: 0}
+  healPointsParent: {fileID: 0}
+  speedUpPointsParent: {fileID: 0}
+  slowDownPointsParent: {fileID: 0}
   scoreItemPrefab: {fileID: 2343876923634216488, guid: 92cc884feca3e394ca06b175ba566c07, type: 3}
   healItemPrefab: {fileID: 8260469682885271453, guid: efb0b69d7c9b07440a9742dca1f8bec2, type: 3}
   speedUpItemPrefab: {fileID: 3386686147359923941, guid: 9f921a21c31987b439ff67bd8a4e7bf7, type: 3}
@@ -37591,6 +37593,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficultyInterval: 30
   speedIncrement: 0.5
+  initialHP: 1
+  hpDecreaseSpeed: 0.01
+  damageAmount: 0.2
 --- !u!4 &1478608700
 Transform:
   m_ObjectHideFlags: 0
@@ -38266,10 +38271,9 @@ MonoBehaviour:
   JumpForce: 5
   MaxJumpCount: 2
   InvincibleDuration: 1
-  currentHP: 100
   JumpColliderYOffset: 0.7
-  jumpClip: {fileID: 8300000, guid: 98c7dcccc8de2c346a2fba68ec8d1839, type: 3}
-  slideClip: {fileID: 8300000, guid: 79e6eb5146f41374ca90a2b83d4a3f87, type: 3}
+  jumpClip: {fileID: 0}
+  slideClip: {fileID: 0}
 --- !u!212 &1802049415
 SpriteRenderer:
   m_ObjectHideFlags: 0
