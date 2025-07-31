@@ -205,4 +205,12 @@ public class PlayerController : MonoBehaviour
 
         Animator?.SetTrigger("HitTime");
     }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("DeathZone"))
+        {
+            GameManager.Instance.GameOver();
+        }
+    }
 }
