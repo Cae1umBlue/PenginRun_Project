@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // 아이템 종류 정의
@@ -14,11 +13,17 @@ public enum ItemType
 // 플레이어와 충돌 시 효과 적용 후 파괴되는 아이템 스크립트
 public class Item : MonoBehaviour
 {
+    [Header("아이템 타입")]
     public ItemType itemType = ItemType.Score;  // 이 아이템의 타입
 
+    [Header("Score 아이템 설정")]
     public int scoreValue = 10;   // Score 아이템 점수
-    public int healAmount = 1;    // Heal 아이템 회복량
-    public float speedAmount = 1f;   // SpeedUp/SlowDown 속도 변화량
+
+    [Header("Heal 아이템 설정")]
+    public float healAmount = 1f;    // Heal 아이템 회복량
+
+    [Header("SpeedUp/SlowDown 설정")]
+    public float speedAmount = 1f;   // 속도 변화량
     public float effectDuration = 5f;   // 속도 효과 지속 시간
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -35,8 +40,7 @@ public class Item : MonoBehaviour
 
             case ItemType.Heal:
                 // 체력 회복 아이템 획득
-                PlayerController.Instance.Heal(healAmount);  // PlayerController에 Heal(int) 메서드 필요
-                UIManager.Instance.UpdateHPUI(PlayerController.Instance.currentHP);
+                GameManager.Instance.IncreaseHP(healAmount);
                 break;
 
             case ItemType.SpeedUp:
@@ -50,23 +54,25 @@ public class Item : MonoBehaviour
                 break;
         }
 
-        // 아이템 획득 효과음 재생 (선택)
+        // (선택) 아이템 획득 효과음
         // SoundManager.Instance.PlaySFX("ItemPickup");
 
-        // 아이템 오브젝트 파괴
+        // 아이템 파괴
         Destroy(gameObject);
     }
 
-    // 속도 증감 효과를 일정 시간 적용 후 원상복구하는 코루틴
+    /// <summary>
+    /// amount 만큼 moveSpeed를 조정했다가, effectDuration 후 원상복귀합니다.
+    /// (amount > 0: 가속, amount < 0: 감속)
+    /// </summary>
     private IEnumerator ApplySpeedEffect(float amount)
     {
-        if (PlayerController.Instance != null)
+        var pc = PlayerController.Instance;
+        if (pc != null)
         {
-            PlayerController.Instance.moveSpeed += amount;
-
+            pc.moveSpeed += amount;
             yield return new WaitForSeconds(effectDuration);
-
-            PlayerController.Instance.moveSpeed -= amount;
+            pc.moveSpeed -= amount;
         }
     }
 }
