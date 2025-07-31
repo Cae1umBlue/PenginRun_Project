@@ -28,9 +28,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D Rb;
     private Animator Animator;
 
-    // 플레이어 임시 체력 (충돌 테스트)
-    public int currentHP = 100;
-
     // Collider 관련
     private Collider2D PlayerCollider;
     private Vector2 OriginalColliderOffset;
@@ -178,7 +175,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Obstacle 장애물과 플레이어가 부딪칠 경우 1의 대미지를 받고, HitTime 애니메이션이 실행됨
+    // Obstacle 장애물과 플레이어가 부딪칠 경우 대미지를 받고, HitTime 애니메이션이 실행됨
     public void TakeDamage()
     {
         // 무적 상태라면 대미지 무시
@@ -204,8 +201,4 @@ public class PlayerController : MonoBehaviour
         //    }
     }
 
-    public void Heal(int amount)
-    {
-        currentHP = currentHP + amount;
-    }
 }
