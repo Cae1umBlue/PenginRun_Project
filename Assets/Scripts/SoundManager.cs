@@ -62,6 +62,14 @@ public class SoundManager : MonoBehaviour
 
     void Init()
     {
+        // 배경음 플레이어 초기화
+        GameObject bgmObject = new GameObject("BgmPlayer"); // bgm을 재생하는 오브젝트 생성
+        bgmObject.transform.parent = transform;
+        bgmPlayer = bgmObject.AddComponent<AudioSource>();
+        bgmPlayer.playOnAwake = false;
+        bgmPlayer.loop = true;
+        bgmPlayer.volume = bgmVolume;
+        bgmPlayer.clip = bgmClip;
 
     }
 
