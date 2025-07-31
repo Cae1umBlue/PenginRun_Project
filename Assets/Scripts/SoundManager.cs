@@ -60,18 +60,8 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1) // 씬에 따라 배경음악 변경
-    {
-        for(int i =0; i < bgmList.Length; i++)
-        {
-            if(arg0.name == bgmList[i].name)
-                BgSoundPlay(bgmList[i]);
-        }
-    }
-
     public void SFXPlay(SFXType type, AudioClip clip) // 효과음 재생 ex) SFXPlay("Jump", clip) clip은 인스펙터 창에서 직접 넣기 
     {
-        GameObject go = new GameObject(type + "Sound"); // 소리를 재생하는 오브젝트 생성
         AudioSource audioSource = go.AddComponent<AudioSource>(); // 오브젝트에 AudioSource 컴포넌트 추가
         audioSource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
         audioSource.clip = clip;
