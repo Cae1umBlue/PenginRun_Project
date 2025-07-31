@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour
 {
-    public float FixedY = 0f;              // Y값 (고정)
+    // public float FixedY = 0f;              // Y값 (고정) - 삭제
     public float ZOffset = -10f;           // 카메라 Z축 거리
     public float FollowSpeed = 5f;         // 따라가기 속도
     public float XOffset = 4.5f;           // 타겟 중심값 + X축 오프셋
@@ -35,7 +35,11 @@ public class CameraController : MonoBehaviour
     {
         if (Target != null)
         {
-            Vector3 targetPos = new Vector3(Target.position.x + XOffset, FixedY, ZOffset);
+            //Vector3 targetPos = new Vector3(Target.position.x + XOffset, FixedY, ZOffset); // Y값 고정 - 삭제
+
+
+            // Y값을 고정하지 않고 타겟의 Y값을 따라가도록 수정
+            Vector3 targetPos = new Vector3(Target.position.x + XOffset, Target.position.y, ZOffset);
             transform.position = Vector3.Lerp(transform.position, targetPos, FollowSpeed * Time.deltaTime);
         }
     }
