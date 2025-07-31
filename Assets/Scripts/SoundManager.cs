@@ -36,7 +36,7 @@ public class SoundManager : MonoBehaviour
 
     [Header("#BGM")]
     [SerializeField] private AudioSource bgmPlayer;
-    [SerializeField] private AudioClip[] bgmList;
+    [SerializeField] private AudioClip bgmClip;
     public float bgmVolume;
 
     [Header("#SFX")]
