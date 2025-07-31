@@ -77,7 +77,7 @@ public class SoundManager : MonoBehaviour
 
 
         // 효과음 플레이어 초기화
-        GameObject sfxObject = new GameObject("SfxPlayer"); // bgm을 재생하는 오브젝트 생성
+        GameObject sfxObject = new GameObject("SfxPlayer"); // SFX를 재생하는 오브젝트 생성
         sfxObject.transform.parent = transform;
         sfxPlayers = new AudioSource[channels];
 
@@ -98,6 +98,9 @@ public class SoundManager : MonoBehaviour
         for (int i = 0; i < sfxList.Length; i++)
         {
             int loopIndex = (i + channelIndex) % sfxPlayers.Length;
+
+            if (sfxPlayers[loopIndex] == null)
+                continue;
 
             if (sfxPlayers[loopIndex].isPlaying)
                 continue;
