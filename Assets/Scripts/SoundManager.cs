@@ -23,8 +23,8 @@ public enum SFXType
     Jump, 
     Slide,
     Hit,
+    Fall,
     GameOver,
-    Win,
     Item,
     UIClick,
     Score
