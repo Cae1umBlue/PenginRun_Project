@@ -12,15 +12,18 @@ public class UIManager : MonoBehaviour
     public Text highScoreText;
     public Image hpBarImage;
 
+    private bool isGameOver = false;
+
     private float currentHP = 1f;
     private float hpDecreaseSpeed = 0.01f; // 초당 감소값
 
 
     public void OnStartButtonPressed()
     {
-        HideAllUI();          // 모든 UI 숨기기
-        ShowInGameUI();       // 인게임 UI 보여주기
-        Time.timeScale = 1f;  // 혹시 멈춰있던 시간 재개
+
+        introUI.SetActive(false);   // 인트로 숨김
+        inGameUI.SetActive(true);   // 인게임 UI 표시
+        Time.timeScale = 1f;
     }
 
     [System.Serializable]
@@ -103,16 +106,11 @@ public class UIManager : MonoBehaviour
 
     // UI 전환 제어
 
-    public void HideAllUI()
-    {
-        introUI.SetActive(false);
-        inGameUI.SetActive(false);
-        gameOverUI.SetActive(false);
-    }
+   
 
     public void ShowUI(GameObject targetUI)
     {
-        HideAllUI();
+       
         targetUI.SetActive(true);
         targetUI.transform.SetAsLastSibling();
     }
@@ -124,7 +122,21 @@ public class UIManager : MonoBehaviour
             hpBarImage.fillAmount = hpRatio;
     }
 
-    
+    private void Update()
+    {
+        currentHP -= hpDecreaseSpeed * Time.deltaTime;
+        currentHP = Mathf.Max(currentHP, 0f);
+
+        UpdateHPUI(currentHP);
+
+        if (currentHP <= 0f && !isGameOver)
+        {
+            isGameOver = true;
+            inGameUI.SetActive(false);     // 인게임 UI 숨김
+            gameOverUI.SetActive(true);    // 게임오버 UI 표시
+            Time.timeScale = 0f;           // 게임 정지
+        }
+    }
 
 
 
