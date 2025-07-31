@@ -40434,9 +40434,14 @@ MonoBehaviour:
   bgmClip: {fileID: 8300000, guid: 779971d400cff284093e5db73c356c6b, type: 3}
   bgmVolume: 0.5
   sfxList:
-  - {fileID: 8300000, guid: 959d86561c2f88346abe20196d133bc8, type: 3}
-  - {fileID: 8300000, guid: 79e6eb5146f41374ca90a2b83d4a3f87, type: 3}
+  - {fileID: 8300000, guid: f52028ac57b2a49f7bcf1ec0a7e6b52c, type: 3}
+  - {fileID: 8300000, guid: 1fb0e0d70cce9cf4580b4e2a94a58ed4, type: 3}
   - {fileID: 8300000, guid: 98c7dcccc8de2c346a2fba68ec8d1839, type: 3}
+  - {fileID: 8300000, guid: 40c3d3753805d4215a2b2acbf97c97e5, type: 3}
+  - {fileID: 8300000, guid: 50598107af2844fe78f9cdb56ccd3b78, type: 3}
+  - {fileID: 8300000, guid: 5671d5483395f4d3abb7d9d0380a5e88, type: 3}
+  - {fileID: 8300000, guid: fcf77559b4c484b4bb499c9a95c32e21, type: 3}
+  - {fileID: 8300000, guid: 74e810cbfa65c0746bc44163454a8913, type: 3}
   channels: 10
   sfxVolume: 0.7
 --- !u!4 &1987153999
