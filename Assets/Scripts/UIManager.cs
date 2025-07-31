@@ -167,14 +167,6 @@ public class UIManager : MonoBehaviour
 
     public void OnRestartButtonPressed()
     {
-        // UI 전환
-        gameOverUI.SetActive(false);
-        inGameUI.SetActive(true);
-
-        // 게임 상태 재시작
-        GameManager.Instance.StartGame();  // 상태를 Playing으로 전환
-
-        // 시간 재개
-        Time.timeScale = 1f;
+        GameManager.Instance.RestartGame();
     }
 }
