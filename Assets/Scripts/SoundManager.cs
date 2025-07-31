@@ -52,7 +52,6 @@ public class SoundManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(Instance);
-            SceneManager.sceneLoaded += OnSceneLoaded; // 씬 이동시 배경음 메서드 추가
         }
         else
         {
