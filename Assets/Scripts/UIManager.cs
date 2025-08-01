@@ -22,7 +22,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button restartButton;
 
     [SerializeField] private Button jumpButton;
-    [SerializeField] private Button slideButton;
+    // [SerializeField] private Button slideButton;
+    // 슬라이드 버튼의 경우 버튼 클릭 이벤트 대신 Down/Up 이벤트로 처리
+    // 사유는 슬라이드 버튼이 클릭 구현이 아닌 버튼을 눌렸을 때와 뗐을 때의 동작 구현을 위함
 
     [Header("Button Effects")]
     [SerializeField] private ButtonEffect[] buttonEffects;
@@ -77,11 +79,10 @@ public class UIManager : MonoBehaviour
             });
         }
 
-        // 점프,슬라이드 버튼
+        // 점프, 슬라이드 버튼
         if (jumpButton != null)
             jumpButton.onClick.AddListener(OnJumpButtonPressed);
-        if (slideButton != null)
-            slideButton.onClick.AddListener(OnSlideButtonPressed);
+        // slideButton의 onClick은 더 이상 사용하지 않음 (슬라이드 버튼은 Down/Up 이벤트로만 처리)
     }
 
     private void OnDestroy()
@@ -109,13 +110,18 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // 슬라이드 버튼 클릭 시 플레이어 슬라이드
-    private void OnSlideButtonPressed()
+    // 슬라이드 버튼 누를 때 슬라이드 시작
+    public void OnSlideButtonDown()
     {
         if (PlayerController.Instance != null)
-        {
-            PlayerController.Instance.SlideByUI();
-        }
+            PlayerController.Instance.StartSlideByUI();
+    }
+
+    // 슬라이드 버튼 뗄 때 슬라이드 종료
+    public void OnSlideButtonUp()
+    {
+        if (PlayerController.Instance != null)
+            PlayerController.Instance.EndSlideByUI();
     }
 
     // GameManager 상태 변화 콜백

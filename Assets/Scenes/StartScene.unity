@@ -688,6 +688,7 @@ MonoBehaviour:
   gameOverScoreText: {fileID: 1959679020}
   gameOverHighScoreText: {fileID: 552615822}
   restartButton: {fileID: 0}
+  jumpButton: {fileID: 1371961499}
   buttonEffects: []
   revertDelay: 0.5
 --- !u!1 &550593272
@@ -795,7 +796,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0390007d87c87f742863e36537da7b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FixedY: 0
   ZOffset: -10
   FollowSpeed: 5
   XOffset: 5
@@ -3099,6 +3099,8 @@ GameObject:
   - component: {fileID: 1924471291}
   - component: {fileID: 1924471290}
   - component: {fileID: 1924471289}
+  - component: {fileID: 1924471292}
+  - component: {fileID: 1924471293}
   m_Layer: 5
   m_Name: SlideButton
   m_TagString: Untagged
@@ -3208,6 +3210,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1924471287}
   m_CullTransparentMesh: 1
+--- !u!114 &1924471292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924471287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 548071015}
+          m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+          m_MethodName: OnSlideButtonDown
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 548071015}
+          m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+          m_MethodName: OnSlideButtonUp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1924471293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924471287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e98eac21a35e197438a4c85c55b940bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1959679018
 GameObject:
   m_ObjectHideFlags: 0

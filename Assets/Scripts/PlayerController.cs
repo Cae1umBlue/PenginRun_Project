@@ -265,4 +265,17 @@ public class PlayerController : MonoBehaviour
 
     // 슬라이딩 상태 확인용
     public bool GetIsSliding() => IsSliding;
+
+    // 슬라이드 시작 버튼을 UI에서 호출
+    public void StartSlideByUI()
+    {
+        if (IsTouchingBlock && !IsSliding)
+            StartSlide();
+    }
+    // 슬라이드 종료 버튼을 UI에서 호출
+    public void EndSlideByUI()
+    {
+        if (IsSliding)
+            EndSlide();
+    }
 }
