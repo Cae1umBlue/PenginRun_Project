@@ -134,6 +134,7 @@ public class UIManager : MonoBehaviour
                 break;
             case GameManager.GameState.GameOver:
                 gameOverUI.SetActive(true);
+                SoundManager.Instance.SFXPlay(SFXType.ScoreUI);
                 Time.timeScale = 0f;
 
                 if (ScoreManager.Instance != null)
@@ -148,6 +149,8 @@ public class UIManager : MonoBehaviour
     // Intro 화면 Start 버튼에 연결
     public void OnStartButtonPressed()
     {
+        SoundManager.Instance.SFXPlay(SFXType.UIClick);
+        SoundManager.Instance.BGMPlay(true);
         GameManager.Instance.StartGame();
     }
 
@@ -196,6 +199,8 @@ public class UIManager : MonoBehaviour
 
     public void OnRestartButtonPressed()
     {
+        SoundManager.Instance.SFXPlay(SFXType.UIClick);
+        SoundManager.Instance.BGMPlay(false);
         GameManager.Instance.RestartGame();
     }
 }

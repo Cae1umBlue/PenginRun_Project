@@ -3324,10 +3324,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f52028ac57b2a49f7bcf1ec0a7e6b52c, type: 3}
   - {fileID: 8300000, guid: 1fb0e0d70cce9cf4580b4e2a94a58ed4, type: 3}
   - {fileID: 8300000, guid: 98c7dcccc8de2c346a2fba68ec8d1839, type: 3}
-  - {fileID: 8300000, guid: 40c3d3753805d4215a2b2acbf97c97e5, type: 3}
-  - {fileID: 8300000, guid: 50598107af2844fe78f9cdb56ccd3b78, type: 3}
+  - {fileID: 8300000, guid: 27f010473b6545e489c4e61e59009edb, type: 3}
   - {fileID: 8300000, guid: 5671d5483395f4d3abb7d9d0380a5e88, type: 3}
-  - {fileID: 8300000, guid: fcf77559b4c484b4bb499c9a95c32e21, type: 3}
+  - {fileID: 8300000, guid: 73bdaf6fa4a24459eb2b7e420333a198, type: 3}
+  - {fileID: 8300000, guid: 1b095a30744dac64ebe7864616af192a, type: 3}
+  - {fileID: 8300000, guid: b7cd703bfb101f4489fce92b8bbf68e1, type: 3}
   - {fileID: 8300000, guid: 74e810cbfa65c0746bc44163454a8913, type: 3}
   channels: 10
   sfxVolume: 0.7
