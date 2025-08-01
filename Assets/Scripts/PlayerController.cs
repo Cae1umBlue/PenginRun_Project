@@ -20,8 +20,8 @@ public class PlayerController : MonoBehaviour
     public float SlideModelYOffset = 0.3f;
 
     [Header("모델/콜라이더 연결")]
-    public Transform PlayerModel;            // 애니메이션, Sprite가 있는 자식 오브젝트
-    [SerializeField] private BoxCollider2D BoxCollider; // 반드시 PlayerCollider 오브젝트에서 드래그 연결
+    public Transform PlayerModel;
+    [SerializeField] private BoxCollider2D BoxCollider;
 
     private Vector3 originalModelLocalPos;
     private Vector2 OriginalBoxOffset;
@@ -49,7 +49,6 @@ public class PlayerController : MonoBehaviour
     {
         Rb = GetComponent<Rigidbody2D>();
 
-        // 반드시 인스펙터에서 연결 필요
         if (BoxCollider != null)
         {
             PlayerCollider = BoxCollider;
@@ -69,7 +68,8 @@ public class PlayerController : MonoBehaviour
     {
         MoveForward();
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        // 슬라이딩 중에는 점프 불가
+        if (Input.GetKeyDown(KeyCode.Space) && !IsSliding)
         {
             if (IsTouchingBlock)
             {
@@ -100,7 +100,6 @@ public class PlayerController : MonoBehaviour
             Animator?.SetTrigger("Jump");
             JumpCount++;
 
-            // 효과음 재생 (AudioClip 제거, SFXType 사용)
             SoundManager.Instance.SFXPlay(SFXType.Jump);
 
             if (PlayerCollider != null)
@@ -129,7 +128,6 @@ public class PlayerController : MonoBehaviour
         IsSliding = true;
         Animator?.SetBool("Slide", true);
 
-        // 효과음 재생 (AudioClip 제거, SFXType 사용)
         SoundManager.Instance.SFXPlay(SFXType.Slide);
 
         if (BoxCollider != null)
