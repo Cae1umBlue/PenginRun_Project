@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     [Header("슬라이드 관련")]
     private bool IsSliding = false;
     public float SlideOffsetDelta = 0.57f;
-    public float SlideSizeDelta = 1.35f;
+    public float SlideSizeDelta = 1.65f;
     public float SlideModelYOffset = 0.3f;
 
     [Header("모델/콜라이더 연결")]
