@@ -34,7 +34,7 @@ public class SoundManager : MonoBehaviour
     public float sfxVolume;
     private int channelIndex;
 
-    public static SoundManager Instance;
+    public static SoundManager Instance { get; private set; }
 
     private void Awake()
     {
