@@ -222,6 +222,8 @@ public class PlayerController : MonoBehaviour
         if (Time.time < HitTime + InvincibleDuration)
             return;
 
+        SoundManager.Instance.SFXPlay(SFXType.Hit);
+
         GameManager.Instance.DecreaseHP(); // 대미지 처리는 GameManager에서 관리
         HitTime = Time.time;
 
