@@ -109,5 +109,15 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+
+    public void BGMVolume(float val)
+    {
+        mixer.SetFloat("BGMVolume", Mathf.Log10(val) * 20);
+    }
+
+    public void SFXVolume(float val)
+    {
+        mixer.SetFloat("SFXVolume", Mathf.Log10(val) * 20);
+    }
 }
 
