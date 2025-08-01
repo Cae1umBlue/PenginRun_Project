@@ -205,7 +205,6 @@ public class UIManager : MonoBehaviour
 
     public void OnRestartButtonPressed()
     {
-        SoundManager.Instance.SFXPlay(SFXType.UIClick);
         SoundManager.Instance.BGMPlay(false);
         GameManager.Instance.RestartGame();
     }
