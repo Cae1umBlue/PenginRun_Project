@@ -10,10 +10,11 @@ public enum SFXType
     Slide,
     Hit,
     Fall, // 맵 밖으로 추락시 사운드
-    GameOver,
-    Item,
+    Coin,
+    item,
+    Heal,
     UIClick,
-    Score
+    ScoreUI
 }
 
 public class SoundManager : MonoBehaviour

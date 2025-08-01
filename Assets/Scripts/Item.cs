@@ -35,30 +35,31 @@ public class Item : MonoBehaviour
         {
             case ItemType.Score:
                 // 점수 아이템 획득
+                SoundManager.Instance.SFXPlay(SFXType.Coin);
                 ScoreManager.Instance.AddScore(scoreValue);
                 break;
 
             case ItemType.Heal:
                 // 체력 회복 아이템 획득
                 GameManager.Instance.IncreaseHP(healAmount);
+                SoundManager.Instance.SFXPlay(SFXType.Heal);
                 break;
 
             case ItemType.SpeedUp:
                 // 속도 증가 아이템 획득
+                SoundManager.Instance.SFXPlay(SFXType.item);
                 StartCoroutine(ApplySpeedEffect(speedAmount));
                 break;
 
             case ItemType.SlowDown:
                 // 속도 감소 아이템 획득
+                SoundManager.Instance.SFXPlay(SFXType.item);
                 StartCoroutine(ApplySpeedEffect(-speedAmount));
                 break;
         }
 
-        // (선택) 아이템 획득 효과음
-        // SoundManager.Instance.PlaySFX("ItemPickup");
-
-        // 아이템 파괴
-        Destroy(gameObject);
+            // 아이템 파괴
+            Destroy(gameObject);
     }
 
     /// <summary>

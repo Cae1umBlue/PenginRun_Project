@@ -119,6 +119,8 @@ public class UIManager : MonoBehaviour
     // Intro 화면 Start 버튼에 연결
     public void OnStartButtonPressed()
     {
+        SoundManager.Instance.SFXPlay(SFXType.UIClick);
+        SoundManager.Instance.BGMPlay(true);
         GameManager.Instance.StartGame();
     }
 
@@ -167,6 +169,8 @@ public class UIManager : MonoBehaviour
 
     public void OnRestartButtonPressed()
     {
+        SoundManager.Instance.SFXPlay(SFXType.UIClick);
+        SoundManager.Instance.BGMPlay(false);
         GameManager.Instance.RestartGame();
     }
 }
