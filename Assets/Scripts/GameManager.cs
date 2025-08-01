@@ -89,6 +89,7 @@ public class GameManager : MonoBehaviour
         OnHighScoreChanged?.Invoke(ScoreManager.Instance.HighScore);
 
         Time.timeScale = 0f;
+        SoundManager.Instance.BGMPlay(false);
         SetState(GameState.GameOver);
     }
 
