@@ -190,6 +190,11 @@ public class PlayerController : MonoBehaviour
             TakeDamage();
             CameraController.Instance.ShakeCamera(0.2f, 0.3f);
         }
+
+        else if (collision.gameObject.CompareTag("Trophy"))
+        {
+            GameManager.Instance.GameOver();
+        }
     }
 
     // 바닥에서 떨어졌을 때 처리
