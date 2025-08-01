@@ -4,26 +4,12 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
-/* 제작 해야할 목록
-BGM
-배경음악 재생 : BGM 오브젝트
-SFX
-캐릭터
-    1. 점프
-    2. 슬라이딩
-    3. 장애물 피격
-    4. 추락(?)
-UISound
-클릭(선택)
-점수창
-*/
-
 public enum SFXType
 {
     Jump, 
     Slide,
     Hit,
-    Fall,
+    Fall, // 맵 밖으로 추락시 사운드
     GameOver,
     Item,
     UIClick,
@@ -91,7 +77,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void SFXPlay(SFXType type) // 효과음 재생 ex) SFXPlay("Jump", clip) clip은 인스펙터 창에서 직접 넣기 
+    public void SFXPlay(SFXType type) // 효과음 재생 
     {
         for (int i = 0; i < sfxList.Length; i++)
         {
