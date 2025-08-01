@@ -105,6 +105,7 @@ public class UIManager : MonoBehaviour
                 break;
             case GameManager.GameState.GameOver:
                 gameOverUI.SetActive(true);
+                SoundManager.Instance.SFXPlay(SFXType.ScoreUI);
                 Time.timeScale = 0f;
 
                 if (ScoreManager.Instance != null)
