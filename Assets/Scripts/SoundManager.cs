@@ -68,7 +68,7 @@ public class SoundManager : MonoBehaviour
         sfxObject.transform.parent = transform;
         sfxPlayers = new AudioSource[channels];
 
-        for(int i = 0; i < sfxList.Length; i++)
+        for(int i = 0; i < channels; i++) // 채널 수 만큼 반복
         {
             sfxPlayers[i] = sfxObject.AddComponent<AudioSource>();
             sfxPlayers[i].playOnAwake = false;
