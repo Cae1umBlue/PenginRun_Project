@@ -19,7 +19,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text gameOverScoreText;
     [SerializeField] private Text gameOverHighScoreText;
 
-    [SerializeField] private Button restartButton; 
+    [SerializeField] private Button restartButton;
+
+    [SerializeField] private Button jumpButton;
+    [SerializeField] private Button slideButton;
 
     [Header("Button Effects")]
     [SerializeField] private ButtonEffect[] buttonEffects;
@@ -73,6 +76,12 @@ public class UIManager : MonoBehaviour
                 StartCoroutine(RevertAfterDelay(e.targetImage, original));
             });
         }
+
+        // 점프,슬라이드 버튼
+        if (jumpButton != null)
+            jumpButton.onClick.AddListener(OnJumpButtonPressed);
+        if (slideButton != null)
+            slideButton.onClick.AddListener(OnSlideButtonPressed);
     }
 
     private void OnDestroy()
@@ -86,6 +95,26 @@ public class UIManager : MonoBehaviour
         {
             GameManager.Instance.OnStateChanged -= HandleStateChanged;
             GameManager.Instance.OnHPChanged -= UpdateHPUI;
+        }
+    }
+
+    // 점프 버튼 클릭 시 플레이어 점프
+    private void OnJumpButtonPressed()
+    {
+        if (PlayerController.Instance != null)
+        {
+            // 슬라이딩 중이 아닐 때만 점프
+            if (!PlayerController.Instance.GetIsSliding())
+                PlayerController.Instance.JumpByUI();
+        }
+    }
+
+    // 슬라이드 버튼 클릭 시 플레이어 슬라이드
+    private void OnSlideButtonPressed()
+    {
+        if (PlayerController.Instance != null)
+        {
+            PlayerController.Instance.SlideByUI();
         }
     }
 

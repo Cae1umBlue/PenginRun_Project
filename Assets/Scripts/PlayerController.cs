@@ -232,4 +232,37 @@ public class PlayerController : MonoBehaviour
             GameManager.Instance.GameOver();
         }
     }
+
+    // UI에서 점프 버튼을 눌렀을 때 호출
+    public void JumpByUI()
+    {
+        if (!IsSliding)
+        {
+            if (IsTouchingBlock)
+            {
+                JumpCount = 0;
+                Jump();
+            }
+            else if (JumpCount > 0 && JumpCount < MaxJumpCount)
+            {
+                Jump();
+            }
+        }
+    }
+
+    // UI에서 슬라이드 버튼을 눌렀을 때 호출
+    public void SlideByUI()
+    {
+        if (IsTouchingBlock && !IsSliding)
+        {
+            StartSlide();
+        }
+        else if (IsSliding)
+        {
+            EndSlide();
+        }
+    }
+
+    // 슬라이딩 상태 확인용
+    public bool GetIsSliding() => IsSliding;
 }
