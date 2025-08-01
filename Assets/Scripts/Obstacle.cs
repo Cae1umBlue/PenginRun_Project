@@ -13,6 +13,8 @@ public class Obstacle : MonoBehaviour
             if (player != null)
             {
                 player.TakeDamage();
+                // 카메라 떨림 효과 호출 (예시: 0.2초, 0.3 강도)
+                CameraController.Instance.ShakeCamera(0.2f, 0.3f);
             }
         }
     }

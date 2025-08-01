@@ -21,14 +21,12 @@ public class PlayerController : MonoBehaviour
 
     [Header("모델/콜라이더 연결")]
     public Transform PlayerModel;
-    [SerializeField] private BoxCollider2D BoxCollider;
-
     private Vector3 originalModelLocalPos;
+
+    private BoxCollider2D BoxCollider;
     private Vector2 OriginalBoxOffset;
     private Vector2 OriginalBoxSize;
     private Vector2 OriginalColliderOffset;
-
-    private Collider2D PlayerCollider;
 
     private Rigidbody2D Rb;
     private Animator Animator;
@@ -48,10 +46,10 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         Rb = GetComponent<Rigidbody2D>();
+        BoxCollider = GetComponent<BoxCollider2D>();
 
         if (BoxCollider != null)
         {
-            PlayerCollider = BoxCollider;
             OriginalBoxOffset = BoxCollider.offset;
             OriginalBoxSize = BoxCollider.size;
             OriginalColliderOffset = BoxCollider.offset;
@@ -68,7 +66,6 @@ public class PlayerController : MonoBehaviour
     {
         MoveForward();
 
-        // 슬라이딩 중에는 점프 불가
         if (Input.GetKeyDown(KeyCode.Space) && !IsSliding)
         {
             if (IsTouchingBlock)
@@ -102,11 +99,11 @@ public class PlayerController : MonoBehaviour
 
             SoundManager.Instance.SFXPlay(SFXType.Jump);
 
-            if (PlayerCollider != null)
+            if (BoxCollider != null)
             {
-                var offset = PlayerCollider.offset;
+                var offset = BoxCollider.offset;
                 offset.y = OriginalColliderOffset.y + JumpColliderYOffset;
-                PlayerCollider.offset = offset;
+                BoxCollider.offset = offset;
             }
         }
     }
@@ -127,7 +124,6 @@ public class PlayerController : MonoBehaviour
     {
         IsSliding = true;
         Animator?.SetBool("Slide", true);
-
         SoundManager.Instance.SFXPlay(SFXType.Slide);
 
         if (BoxCollider != null)
@@ -172,8 +168,14 @@ public class PlayerController : MonoBehaviour
             IsTouchingBlock = true;
             JumpCount = 0;
 
-            if (PlayerCollider != null)
-                PlayerCollider.offset = OriginalColliderOffset;
+            if (BoxCollider != null)
+                BoxCollider.offset = OriginalColliderOffset;
+        }
+
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            TakeDamage();
+            CameraController.Instance.ShakeCamera(0.2f, 0.3f);
         }
     }
 
@@ -187,9 +189,9 @@ public class PlayerController : MonoBehaviour
 
     private void RestoreColliderOffsetIfNeeded()
     {
-        if (IsTouchingBlock && PlayerCollider != null && PlayerCollider.offset != OriginalColliderOffset)
+        if (IsTouchingBlock && BoxCollider != null && BoxCollider.offset != OriginalColliderOffset)
         {
-            PlayerCollider.offset = OriginalColliderOffset;
+            BoxCollider.offset = OriginalColliderOffset;
         }
     }
 
@@ -201,6 +203,7 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.DecreaseHP();
         HitTime = Time.time;
 
+        Debug.Log("TakeDamage called!");
         Animator?.SetTrigger("HitTime");
     }
 
