@@ -53,7 +53,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    void Init()
+    private void Init()
     {
         // 배경음 플레이어 초기화
         GameObject bgmObject = new GameObject("BgmPlayer"); // bgm을 재생하는 오브젝트 생성
@@ -71,7 +71,7 @@ public class SoundManager : MonoBehaviour
         sfxObject.transform.parent = transform;
         sfxPlayers = new AudioSource[channels];
 
-        for(int i = 0; i < channels; i++) // 채널 수 만큼 반복
+        for (int i = 0; i < channels; i++) // 채널 수 만큼 반복
         {
             sfxPlayers[i] = sfxObject.AddComponent<AudioSource>();
             sfxPlayers[i].playOnAwake = false;
@@ -122,7 +122,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void BGMPlay(bool isPlay) 
+    public void BGMPlay(bool isPlay)
     {
         if (isPlay)
         {
@@ -135,16 +135,23 @@ public class SoundManager : MonoBehaviour
     }
 
 
-    public void BGMVolume(float val)
+    private void BGMVolume(float val)
     {
-        mixer.SetFloat("BGMVolume", Mathf.Log10(val) * 20);
-        PlayerPrefs.SetFloat("BGMVolume", val);
+        SetVolume(val, "BGMVolume");
     }
 
-    public void SFXVolume(float val)
+    private void SFXVolume(float val)
     {
-        mixer.SetFloat("SFXVolume", Mathf.Log10(val) * 20);
-        PlayerPrefs.SetFloat("SFXVolume", val);
+        SetVolume(val, "SFXVolume");
+    }
+
+    private void SetVolume(float volumeValue, string volumeName)
+    {
+        float dbValue = Mathf.Clamp01(volumeValue);
+
+        mixer.SetFloat(volumeName, dbValue);
+        PlayerPrefs.SetFloat(volumeName, dbValue);
+
     }
 }
 
