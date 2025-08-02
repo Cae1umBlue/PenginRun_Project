@@ -26,6 +26,8 @@ public class UIManager : MonoBehaviour
     // 슬라이드 버튼의 경우 버튼 클릭 이벤트 대신 Down/Up 이벤트로 처리
     // 사유는 슬라이드 버튼이 클릭 구현이 아닌 버튼을 눌렸을 때와 뗐을 때의 동작 구현을 위함
 
+
+    // 사운드 조절 UI 필드 변수 추가 - 승엽
     [SerializeField] private Slider bgmSlider;
     [SerializeField] private Slider sfxSlider;
 
@@ -82,6 +84,7 @@ public class UIManager : MonoBehaviour
             });
         }
 
+        // 6) 사운드 조절 이벤트 추가 메서드 - 승엽
         if (SoundManager.Instance != null)
         {
             SoundManager.Instance.SetSliders(bgmSlider, sfxSlider);
