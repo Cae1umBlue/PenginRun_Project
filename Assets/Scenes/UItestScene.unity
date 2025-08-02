@@ -974,16 +974,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 548071013}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.55, y: 0.55, z: 0.55}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1988408891}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 959.99994, y: 540}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &548071015
@@ -4640,6 +4640,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: 97579a5e58e3c3c499257038655e8c28, type: 2}
+  bgmSlider: {fileID: 599455796}
+  sfxSlider: {fileID: 1144189788}
   bgmClip: {fileID: 8300000, guid: 779971d400cff284093e5db73c356c6b, type: 3}
   bgmVolume: 0.5
   sfxList:
@@ -4859,7 +4861,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 548071014}
   - {fileID: 1388260000}
   - {fileID: 996958684}
   - {fileID: 970322212}
@@ -67215,4 +67216,5 @@ SceneRoots:
   - {fileID: 236221149}
   - {fileID: 1949887646178942717}
   - {fileID: 1260145280}
+  - {fileID: 548071014}
   - {fileID: 1562503322}

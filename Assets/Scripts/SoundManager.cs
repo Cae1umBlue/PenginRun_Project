@@ -45,6 +45,7 @@ public class SoundManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            LoadVolumeSetting();
             Init();
         }
         else
@@ -81,7 +82,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void LoadVolumeSetting()
     {
         float bgmVal = PlayerPrefs.GetFloat("BGMVolume", 0.75f);
         float sfxVal = PlayerPrefs.GetFloat("SFXVolume", 0.75f);
@@ -89,8 +90,8 @@ public class SoundManager : MonoBehaviour
         bgmSlider.value = bgmVal;
         sfxSlider.value = sfxVal;
 
-        mixer.SetFloat("BGMVolume", Mathf.Log10(bgmVal) * 20);
-        mixer.SetFloat("SfXVolume", Mathf.Log10(sfxVal) * 20);
+        BGMVolume(bgmVal);
+        SFXVolume(bgmVal);
     }
 
     public void SFXPlay(SFXType type) // 효과음 재생 
