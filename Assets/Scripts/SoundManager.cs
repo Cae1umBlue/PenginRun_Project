@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum SFXType
 {
@@ -19,8 +20,10 @@ public enum SFXType
 
 public class SoundManager : MonoBehaviour
 {
-    [Header("Mixer")]
+    [Header("VolumeControl")]
     [SerializeField] private AudioMixer mixer;
+    [SerializeField] private Slider bgmSlider;
+    [SerializeField] private Slider sfxSlider;
 
     [Header("BGM")]
     [SerializeField] private AudioClip bgmClip;
@@ -78,6 +81,18 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        float bgmVal = PlayerPrefs.GetFloat("BGMVolume", 0.75f);
+        float sfxVal = PlayerPrefs.GetFloat("SFXVolume", 0.75f);
+
+        bgmSlider.value = bgmVal;
+        sfxSlider.value = sfxVal;
+
+        mixer.SetFloat("BGMVolume", Mathf.Log10(bgmVal) * 20);
+        mixer.SetFloat("SfXVolume", Mathf.Log10(sfxVal) * 20);
+    }
+
     public void SFXPlay(SFXType type) // 효과음 재생 
     {
         for (int i = 0; i < sfxList.Length; i++)
@@ -113,11 +128,13 @@ public class SoundManager : MonoBehaviour
     public void BGMVolume(float val)
     {
         mixer.SetFloat("BGMVolume", Mathf.Log10(val) * 20);
+        PlayerPrefs.SetFloat("BGMVolume", val);
     }
 
     public void SFXVolume(float val)
     {
         mixer.SetFloat("SFXVolume", Mathf.Log10(val) * 20);
+        PlayerPrefs.SetFloat("SFXVolume", val);
     }
 }
 

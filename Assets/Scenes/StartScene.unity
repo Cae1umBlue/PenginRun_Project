@@ -59932,6 +59932,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: 97579a5e58e3c3c499257038655e8c28, type: 2}
+  bgmSlider: {fileID: 599455796}
+  sfxSlider: {fileID: 1144189788}
   bgmClip: {fileID: 8300000, guid: 779971d400cff284093e5db73c356c6b, type: 3}
   bgmVolume: 0.5
   sfxList:
