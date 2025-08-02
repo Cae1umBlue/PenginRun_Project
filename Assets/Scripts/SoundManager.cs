@@ -45,7 +45,6 @@ public class SoundManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            LoadVolumeSetting();
             Init();
         }
         else
@@ -91,7 +90,7 @@ public class SoundManager : MonoBehaviour
         sfxSlider.value = sfxVal;
 
         BGMVolume(bgmVal);
-        SFXVolume(bgmVal);
+        SFXVolume(sfxVal);
     }
 
     public void SFXPlay(SFXType type) // 효과음 재생 
