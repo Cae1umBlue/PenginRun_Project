@@ -71,7 +71,7 @@ public class SoundManager : MonoBehaviour
         sfxObject.transform.parent = transform;
         sfxPlayers = new AudioSource[channels];
 
-        for (int i = 0; i < channels; i++) // 채널 수 만큼 반복
+        for(int i = 0; i < channels; i++) // 채널 수 만큼 반복
         {
             sfxPlayers[i] = sfxObject.AddComponent<AudioSource>();
             sfxPlayers[i].playOnAwake = false;
@@ -122,7 +122,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void BGMPlay(bool isPlay)
+    public void BGMPlay(bool isPlay) 
     {
         if (isPlay)
         {
@@ -137,21 +137,14 @@ public class SoundManager : MonoBehaviour
 
     private void BGMVolume(float val)
     {
-        SetVolume(val, "BGMVolume");
+        mixer.SetFloat("BGMVolume", Mathf.Log10(val) * 20);
+        PlayerPrefs.SetFloat("BGMVolume", val);
     }
 
     private void SFXVolume(float val)
     {
-        SetVolume(val, "SFXVolume");
-    }
-
-    private void SetVolume(float volumeValue, string volumeName)
-    {
-        float dbValue = Mathf.Log10(volumeValue) * 20;
-
-        mixer.SetFloat(volumeName, dbValue);
-        PlayerPrefs.SetFloat(volumeName, dbValue);
-
+        mixer.SetFloat("SFXVolume", Mathf.Log10(val) * 20);
+        PlayerPrefs.SetFloat("SFXVolume", val);
     }
 }
 
