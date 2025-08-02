@@ -147,7 +147,7 @@ public class SoundManager : MonoBehaviour
 
     private void SetVolume(float volumeValue, string volumeName)
     {
-        float dbValue = Mathf.Clamp01(volumeValue);
+        float dbValue = Mathf.Log10(volumeValue) * 20;
 
         mixer.SetFloat(volumeName, dbValue);
         PlayerPrefs.SetFloat(volumeName, dbValue);
