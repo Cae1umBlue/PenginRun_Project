@@ -22,8 +22,8 @@ public class SoundManager : MonoBehaviour
 {
     [Header("VolumeControl")]
     [SerializeField] private AudioMixer mixer;
-    [SerializeField] private Slider bgmSlider;
-    [SerializeField] private Slider sfxSlider;
+    private Slider bgmSlider;
+    private Slider sfxSlider;
 
     [Header("BGM")]
     [SerializeField] private AudioClip bgmClip;
@@ -81,16 +81,26 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    private void LoadVolumeSetting()
+    public void SetSliders(Slider bgm, Slider sfx)
     {
-        float bgmVal = PlayerPrefs.GetFloat("BGMVolume", 0.75f);
-        float sfxVal = PlayerPrefs.GetFloat("SFXVolume", 0.75f);
+        bgmSlider = bgm;
+        sfxSlider = sfx;
 
-        bgmSlider.value = bgmVal;
-        sfxSlider.value = sfxVal;
+        if (bgmSlider != null)
+        {
+            float bgmVal = PlayerPrefs.GetFloat("BGMVolume", 0.75f);
+            bgmSlider.value = bgmVal;
+            bgmSlider.onValueChanged.AddListener(BGMVolume);
+            BGMVolume(bgmVal);
+        }
 
-        BGMVolume(bgmVal);
-        SFXVolume(sfxVal);
+        if (sfxSlider != null)
+        {
+            float sfxVal = PlayerPrefs.GetFloat("SFXVolume", 0.75f);
+            sfxSlider.value = sfxVal;
+            sfxSlider.onValueChanged.AddListener(SFXVolume);
+            SFXVolume(sfxVal);
+        }
     }
 
     public void SFXPlay(SFXType type) // 효과음 재생 
