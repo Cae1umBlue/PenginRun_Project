@@ -26,6 +26,9 @@ public class UIManager : MonoBehaviour
     // 슬라이드 버튼의 경우 버튼 클릭 이벤트 대신 Down/Up 이벤트로 처리
     // 사유는 슬라이드 버튼이 클릭 구현이 아닌 버튼을 눌렸을 때와 뗐을 때의 동작 구현을 위함
 
+    [SerializeField] private Slider bgmSlider;
+    [SerializeField] private Slider sfxSlider;
+
     [Header("Button Effects")]
     [SerializeField] private ButtonEffect[] buttonEffects;
     [SerializeField] private float revertDelay = 0.5f;
@@ -77,6 +80,11 @@ public class UIManager : MonoBehaviour
                 e.targetImage.sprite = e.newSprite;
                 StartCoroutine(RevertAfterDelay(e.targetImage, original));
             });
+        }
+
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.SetSliders(bgmSlider, sfxSlider);
         }
 
         // 점프, 슬라이드 버튼
