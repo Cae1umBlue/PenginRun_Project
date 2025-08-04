@@ -95,10 +95,15 @@
 - TextMesh Pro
 
 ## 에셋 출처
-배경화면 : https://assetstore.unity.com/packages/2d/environments/pixel-skies-demo-background-pack-226622
-캐릭터 : https://assetstore.unity.com/packages/2d/characters/2d-character-sprite-animation-penguin-236747
-사운드
-- https://uppbeat.io/sfx/cartoon-falling-over-1/5080/19650
-- https://opengameart.org/sites/default/files/Win%20sound.wav
-- https://freepd.com/music/Rush.mp3
-- https://kenney.nl/assets/ui-audio
+- 배경화면 : https://assetstore.unity.com/packages/2d/environments/pixel-skies-demo-background-pack-226622
+- 캐릭터 : https://assetstore.unity.com/packages/2d/characters/2d-character-sprite-animation-penguin-236747
+- 사운드
+  - https://uppbeat.io/sfx/cartoon-falling-over-1/5080/19650
+  - https://opengameart.org/sites/default/files/Win%20sound.wav
+  - https://freepd.com/music/Rush.mp3
+  - https://kenney.nl/assets/ui-audio
+ 
+---
+
+## 트러블 슈팅
+
