@@ -106,4 +106,4 @@
 ---
 
 ## 트러블 슈팅
-자세한 내용은 [트러블슈팅 문서](Docs/Troubleshooting.md)를 참고하세요.
+자세한 내용은 [트러블슈팅 문서](Troubleshooting.md)를 참고하세요.
