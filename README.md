@@ -11,8 +11,19 @@
 # 펭귄런(PenguinRun)
 
 ## 📖 목차
-[프로젝트 소개](#프로젝트-소개)
+[프로젝트 개요](#프로젝트-개요)
 
+[기술 스택](#기술-스택)
+
+[클래스 다이어그램](#클래스-다이어그램)
+
+[프로젝트 구조](#프로젝트-구조)
+
+[트러블 슈팅](#트러블-슈팅)
+
+[에셋 출처](#에셋-출처)
+
+[팀원](#팀원)
 
 ---
     
@@ -60,8 +71,10 @@
    - `Game Over` 시점의 점수가 기록됩니다.
    - 점수가 **최고 기록을 갱신**했다면, 해당 점수가 **최고 점수로 저장**됩니다.
 
+---
 
 ## 기술 스택
+
 | 항목            | 내용                                   |
 |-----------------|--------------------------------------|
 | **Language**    | C#                                   |
@@ -70,6 +83,13 @@
 | **Target Platform**  | PC, Phone(Android, iOS)              |
 | **Verson Control**  | Git, GitHub              |
 | **Library**  | TextMeshPro              |
+
+---
+
+## 클래스 다이어그램
+<img width="663" height="453" alt="image" src="https://github.com/user-attachments/assets/07553241-af9f-4b1f-acba-0a577936ad88" />
+
+---
 
 ## 프로젝트 구조
 
@@ -94,6 +114,13 @@
 - Sounds
 - TextMesh Pro
 
+---
+
+## 트러블 슈팅
+자세한 내용은 [트러블슈팅 문서](TroubleShooting.md)를 참고하세요.
+
+---
+
 ## 에셋 출처
 - 배경화면 : https://assetstore.unity.com/packages/2d/environments/pixel-skies-demo-background-pack-226622
 - 캐릭터 : https://assetstore.unity.com/packages/2d/characters/2d-character-sprite-animation-penguin-236747
@@ -104,6 +131,12 @@
   - https://kenney.nl/assets/ui-audio
  
 ---
+## 팀원
+<img width="1221" height="439" alt="image" src="https://github.com/user-attachments/assets/6a98f1e9-1414-4c67-8466-6669fe840a50" />
 
-## 트러블 슈팅
-자세한 내용은 [트러블슈팅 문서](Troubleshooting.md)를 참고하세요.
+- 이서준 (팀장) : https://gist.github.com/LeeSeoJune-stack
+- 구슬기 : https://github.com/sulg16
+- 김정은 : https://github.com/hsju3359
+- 우승일 : https://github.com/NekrosGame
+- 오승엽 : https://github.com/Cae1umBlue
+
