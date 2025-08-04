@@ -10,7 +10,7 @@ public enum SFXType
     Jump, 
     Slide,
     Hit,
-    Fall, // 맵 밖으로 추락시 사운드
+    Fall,
     Coin,
     item,
     Heal,
